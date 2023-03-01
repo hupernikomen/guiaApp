@@ -84,7 +84,7 @@ export default function CadastrarProduto() {
         })
             .then(function (response) {
                 console.log("response :", response);
-                navigation.goBack()
+                // navigation.goBack()
             })
             .catch(function (error) {
                 console.log("error from image :", error);

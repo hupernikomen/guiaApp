@@ -15,8 +15,7 @@ function Routes() {
 
     return(
 
-        // isAuthenticator ? <AppRoutes/> : <AuthRoutes/>
-        <AppRoutes/> 
+        isAuthenticator ? <AppRoutes/> : <AuthRoutes/>
 
     )
 }
