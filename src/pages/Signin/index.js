@@ -15,8 +15,8 @@ export default function Login() {
 
   const { signIn } = useContext(AuthContext)
 
-  const [email, setEmail] = useState("")
-  const [senha, setSenha] = useState("")
+  const [email, setEmail] = useState("hupcontato@gmail.com")
+  const [senha, setSenha] = useState("hpG422354")
 
 
 
