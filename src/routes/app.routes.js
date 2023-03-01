@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator()
 
 function AppRoutes() {
     return (
-        <Stack.Navigator initialRouteName='Home'>
+        <Stack.Navigator initialRouteName='CadastrarProduto'>
             <Stack.Screen name='Home' component={Home} options={{
                 headerShown: false
             }} />
