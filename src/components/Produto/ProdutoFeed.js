@@ -9,13 +9,14 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 
-export default function Product({ item }) {
+export default function Produto({ item }) {
 
   const navigation = useNavigation();
+
   return (
 
     <TouchableOpacity
-      onPress={() => { navigation.navigate("EditProduct", item) }}
+      onPress={() => { navigation.navigate("EditaProduto", item) }}
       activeOpacity={0.8}
       style={styles.containerproduct}>
 
@@ -25,7 +26,7 @@ export default function Product({ item }) {
 
       <View style={styles.containerInfo}>
 
-        <Text numberOfLines={1} style={styles.name}>{item.nome}</Text>
+        <Text numberOfLines={2} ellipsizeMode={"tail"} style={styles.name}>{item.nome}</Text>
 
         <View >
           {!!item.oferta ?
@@ -39,6 +40,8 @@ export default function Product({ item }) {
     </TouchableOpacity>
   );
 }
+
+
 
 function Preco({ preco }) {
   if (!preco) { return }
@@ -57,7 +60,6 @@ function Oferta({ oferta, preco }) {
   let arrOff = parseFloat(oferta).toFixed(2).split('.')
 
   return (
-
     <View style={styles.containerprice}>
       <Text style={styles.cifrao}>R$</Text>
       <Text style={styles.real}>{arrOff[0]}</Text>
@@ -70,23 +72,25 @@ function Oferta({ oferta, preco }) {
   )
 }
 
-
 const styles = StyleSheet.create({
   containerproduct: {
-    flex: 1,
-    maxWidth: "50%",
-    padding: 10,
+    flex: 1 / 2,
+    maxWidth: "49%",
+    borderRadius: 5,
+    backgroundColor: "#fff",
+    elevation:3
+  },
+  containerInfo: {
+    paddingHorizontal: 10,
     paddingBottom: 15,
-    backgroundColor:"#fff",
-    margin:1
   },
   imageproduct: {
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     aspectRatio: 1,
-    borderRadius: 4,
   },
   containerprice: {
     flexDirection: 'row',
+    marginTop: 5
   },
   cifrao: {
     fontSize: 12,
@@ -95,7 +99,7 @@ const styles = StyleSheet.create({
   real: {
     color: '#000',
     fontSize: 20,
-    fontWeight:"500",
+    fontWeight: "500",
     marginTop: -5
   },
   cents: {
@@ -104,12 +108,12 @@ const styles = StyleSheet.create({
     marginLeft: 2,
   },
   priceoff: {
-    marginLeft: 15,
+    marginLeft: 10,
     textDecorationLine: 'line-through'
   },
   name: {
-    fontSize: 15,
-    color: '#000'
+    color: '#000',
+    marginVertical: 2
   },
 
 });

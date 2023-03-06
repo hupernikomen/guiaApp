@@ -4,22 +4,37 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import CadastrarProduto from '../pages/CadastrarProduto'
 import Home from '../pages/Home'
-import EditProduct from '../pages/Edit/product'
+import EditaProduto from '../pages/Edita/produto'
+import CadastrarDados from '../pages/CadastrarDados'
 
 const Stack = createNativeStackNavigator()
 
 function AppRoutes() {
     return (
-        <Stack.Navigator initialRouteName='CadastrarProduto'>
+        <Stack.Navigator initialRouteName='Home'>
             <Stack.Screen name='Home' component={Home} options={{
                 headerShown: false
             }} />
             <Stack.Screen name='CadastrarProduto' component={CadastrarProduto} options={{
-                title: 'Cadastre seu Produto',
-                headerShadowVisible: false
+                title: "",
+                headerShadowVisible: false,
+                headerStyle: {
+                    backgroundColor: "transparent"
+                }
             }} />
-            <Stack.Screen name='EditProduct' component={EditProduct} options={{
-                headerShown: false
+            <Stack.Screen name='CadastrarDados' component={CadastrarDados} options={{
+                title: "",
+                headerShadowVisible: false,
+                headerStyle: {
+                    backgroundColor: "transparent"
+                }
+            }} />
+            <Stack.Screen name='EditaProduto' component={EditaProduto} options={{
+                title: "",
+                headerShadowVisible: false,
+                headerStyle: {
+                    backgroundColor: "transparent"
+                }
             }} />
         </Stack.Navigator>
     )

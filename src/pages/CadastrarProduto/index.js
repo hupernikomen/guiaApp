@@ -69,8 +69,11 @@ export default function CadastrarProduto() {
         formData.append('preco', preco)
         formData.append('tamanho', tamanho)
         for (let i = 0; i < imagens.length; i++) {
-            // console.log(imagens[i], "imagens selecionadas prontas para envio");
-            formData.append('files', imagens[i]);
+            formData.append('files', {
+                uri: imagens[i].uri,
+                type: 'image/jpeg', // ou 'image/png', dependendo do tipo de imagem
+                name: imagens[i].fileName
+            });
         }
         formData.append('categoriaID', categoria)
         formData.append('usuarioID', usuario.id)
@@ -83,14 +86,14 @@ export default function CadastrarProduto() {
             }
         })
             .then(function (response) {
-                console.log("response :", response);
-                // navigation.goBack()
+                console.log("response :", response.status);
+                navigation.goBack()
             })
             .catch(function (error) {
                 console.log("error from image :", error);
             })
 
-            // console.log(formData, "formData após o envio")
+        // console.log(formData, "formData após o envio")
     }
 
     async function CarregaCategorias() {
@@ -105,8 +108,6 @@ export default function CadastrarProduto() {
 
     return (
         <View style={styles.tela}>
-
-            {console.log(imagens)}
 
             <ScrollView horizontal >
                 {imagens.map((item, index) => {
@@ -132,13 +133,13 @@ export default function CadastrarProduto() {
                 </Text>
             </TouchableOpacity>
 
-            <TextInput onChangeText={setNome} placeholder="Nome do Produto" value={nome} />
-            <TextInput onChangeText={setDescricao} placeholder="Detalhes do Produto" value={descricao} />
-            <TextInput keyboardType="numeric" onChangeText={setPreco} placeholder="Preço do Produto" value={preco} />
-            <TextInput onChangeText={setTamanho} placeholder="Tamanhos do Produto" value={tamanho} />
+            <TextInput style={styles.input} onChangeText={setNome} placeholder="Nome do Produto" value={nome} />
+            <TextInput style={styles.input} onChangeText={setDescricao} placeholder="Detalhes do Produto" value={descricao} />
+            <TextInput style={styles.input} keyboardType="numeric" onChangeText={setPreco} placeholder="Preço do Produto" value={preco} />
+            <TextInput style={styles.input} onChangeText={setTamanho} placeholder="Tamanhos do Produto" value={tamanho} />
 
             <Picker
-                style={styles.picker}
+                style={styles.input}
                 mode="dropdown"
                 selectedValue={categoria}
                 onValueChange={(itemValue, itemIndex) => {
@@ -165,9 +166,9 @@ export default function CadastrarProduto() {
                 })}
             </Picker>
 
-            <TouchableOpacity style={styles.btn_cadastrar}
+            <TouchableOpacity style={styles.btncadastrar}
                 onPress={CadastrarItem}>
-                <Text style={styles.txt_cadastrar}>
+                <Text style={styles.txtbtncadastrar}>
                     Cadastrar
                 </Text>
             </TouchableOpacity>
@@ -200,14 +201,35 @@ const styles = StyleSheet.create({
     container_form: {
     },
     input: {
-        fontSize: 16
+        borderWidth: 0,
+        paddingHorizontal: 15,
+        marginVertical: 5,
+        height: 55,
+        borderRadius: 25,
+        fontSize: 16,
+        backgroundColor: "#fff"
     },
-    btn_cadastrar: {
+    inputdescricao: {
+
+        borderWidth: 0,
+        paddingHorizontal: 15,
+        marginVertical: 5,
+        borderRadius: 25,
+        fontSize: 16,
+        backgroundColor: "#fff",
+
+    },
+    btncadastrar: {
+        backgroundColor: '#rgb(226,135,67)',
+        height: 55,
+        borderRadius: 55 / 2,
         alignItems: 'center',
-        justifyContent: "center",
-        height: 80,
+        justifyContent: 'center',
+        marginVertical: 5,
+        elevation:5
     },
-    txt_cadastrar: {
+    txtbtncadastrar: {
+        color: '#fff',
         fontSize: 16
     }
 })

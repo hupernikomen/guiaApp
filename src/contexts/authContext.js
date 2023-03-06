@@ -3,6 +3,7 @@ import api from '../services/api'
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 export const AuthContext = createContext({})
 
 export function AuthProvider({ children }) {
@@ -12,6 +13,8 @@ export function AuthProvider({ children }) {
     email: '',
     token: ''
   })
+
+  const [me, setMe] = useState([])
 
 
   const [loadingAuth, setLoadingAuth] = useState(false)
@@ -46,18 +49,52 @@ export function AuthProvider({ children }) {
     }
     getUser()
 
+   
 
   }, [])
 
 
+  async function PegaMe() {
+    await api.get('/me')
+      .then((response) => {
+        setMe(response.data)
+      })
+  }
 
-  async function signIn({ email,senha }) {
+  async function UpdateUsuario(nome, telefone) {
+
+    const dados = {
+      nome: nome,
+      telefone: telefone,
+      // bio,
+      // endereco,
+      // bairro,
+      // cidade,
+      // entrega
+    }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${usuario.token}`
+    }
+
+    await api.put(`/usuario?usuarioID=${usuario.id}`, dados, { headers })
+      .then((response) => {
+        console.log(response.status);
+
+      })
+      .catch((err) => {
+        console.error(err.response, "catch Error");
+      })
+  }
+
+  async function signIn({ email, senha }) {
 
     setLoadingAuth(true)
     if (email == '' || senha == '') {
       return
     }
-    
+
     const response = await api.post('/login', { email, senha })
 
 
@@ -73,7 +110,7 @@ export function AuthProvider({ children }) {
     setUsuario({
       id,
       email,
-      token
+      token,
     })
 
     setLoadingAuth(false)
@@ -100,6 +137,9 @@ export function AuthProvider({ children }) {
       isAuthenticator,
       loadingAuth,
       loading,
+      UpdateUsuario,
+      PegaMe,
+      me,
       signIn,
       signOut,
     }}>
