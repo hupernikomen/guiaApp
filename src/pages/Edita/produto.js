@@ -48,7 +48,7 @@ export default function EditProduct() {
         return (
           <TouchableOpacity
             onPress={Delete}>
-            <Feather name='trash' size={24} color={'#cb0b21'} />
+            <Feather name='trash' size={24} color={'#F9A825'} />
           </TouchableOpacity>
         )
       }
@@ -148,9 +148,6 @@ const styles = StyleSheet.create({
     margin: 2,
     borderRadius: 6
   },
-  scrollimagens: {
-    opacity: .7
-  },
   containerExcluir: {
     alignItems: 'baseline',
     justifyContent: 'space-between',
@@ -181,13 +178,12 @@ const styles = StyleSheet.create({
     color:'#aaa'
   },
   btnatualizar: {
-    backgroundColor:'#rgb(226,135,67)',
+    backgroundColor:'#F9A825',
     height:55,
     borderRadius: 55/2,
     alignItems:'center',
     justifyContent:'center',
     marginVertical: 5,
-    elevation:5
   },
   txtbtnatualizar: {
     color:'#fff',

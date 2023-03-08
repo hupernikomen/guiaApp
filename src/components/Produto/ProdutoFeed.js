@@ -26,13 +26,14 @@ export default function Produto({ item }) {
 
       <View style={styles.containerInfo}>
 
-        <Text numberOfLines={2} ellipsizeMode={"tail"} style={styles.name}>{item.nome}</Text>
+        <Text numberOfLines={1} ellipsizeMode={"tail"} style={styles.name}>{item.nome}</Text>
 
         <View >
           {!!item.oferta ?
             <Oferta oferta={item.oferta} preco={item.preco} /> :
             <Preco preco={item.preco} />
           }
+
 
         </View>
 
@@ -51,7 +52,7 @@ function Preco({ preco }) {
     <View style={styles.containerprice}>
       <Text style={styles.cifrao}>R$</Text>
       <Text style={styles.real}>{arrPrice[0]}</Text>
-      <Text style={styles.cents}>{arrPrice[1]}</Text>
+      <Text style={styles.cents}>,{arrPrice[1]}</Text>
     </View>
   )
 }
@@ -59,57 +60,71 @@ function Preco({ preco }) {
 function Oferta({ oferta, preco }) {
   let arrOff = parseFloat(oferta).toFixed(2).split('.')
 
+  CalculoOferta(preco, oferta)
+
   return (
     <View style={styles.containerprice}>
       <Text style={styles.cifrao}>R$</Text>
       <Text style={styles.real}>{arrOff[0]}</Text>
-      <Text style={styles.cents}>{arrOff[1]}</Text>
+      <Text style={styles.cents}>,{arrOff[1]}</Text>
 
       <Text style={styles.priceoff}>
-        De: {parseFloat(preco).toFixed(2).replace('.', ',')}
+        {CalculoOferta(preco, oferta)}
+
       </Text>
     </View>
   )
 }
 
+function CalculoOferta(preco, oferta) {
+  const valor = ((oferta * 100) / preco)
+
+  return (
+    <Text>{valor.toFixed(0)}% Off</Text>
+  )
+
+}
+
 const styles = StyleSheet.create({
   containerproduct: {
     flex: 1 / 2,
-    maxWidth: "49%",
-    borderRadius: 5,
+    maxWidth: "48.5%",
     backgroundColor: "#fff",
-    elevation:3
+    overflow: "hidden",
+    borderRadius: 6
   },
   containerInfo: {
     paddingHorizontal: 10,
-    paddingBottom: 15,
+    paddingVertical: 8,
   },
   imageproduct: {
     resizeMode: 'cover',
-    aspectRatio: 1,
+    aspectRatio: .95,
   },
   containerprice: {
     flexDirection: 'row',
-    marginTop: 5
   },
   cifrao: {
-    fontSize: 12,
-    color: '#000',
+    fontSize: 10,
+    color: '#777',
+    marginTop: 2
   },
   real: {
-    color: '#000',
+    color: '#222',
     fontSize: 20,
-    fontWeight: "500",
-    marginTop: -5
+    marginTop: -2,
+    marginLeft: 3
   },
   cents: {
-    color: '#000',
-    fontSize: 12,
-    marginLeft: 2,
+    color: '#222',
   },
   priceoff: {
     marginLeft: 10,
-    textDecorationLine: 'line-through'
+    backgroundColor: "#F9A825",
+    paddingVertical:2,
+    paddingHorizontal:5,
+    color:'#fff',
+
   },
   name: {
     color: '#000',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar, Pressable, Modal } from 'react-native';
-import { useNavigation, useIsFocused, useRoute } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import api from '../../services/api';
 
 import { AuthContext } from '../../contexts/authContext';
@@ -17,13 +17,13 @@ export default function Home() {
 
   const navigation = useNavigation();
   const focus = useIsFocused()
-  const [me, setMe] = useState([]);
+  const [dadosUsuario, setDadosUsuario] = useState([]);
 
   useEffect(() => {
-    Me()
+    PegarUsuario()
 
 
-    const { nome, telefone } = me
+    const { nome, telefone } = dadosUsuario
     if (!nome || !telefone) {
       navigation.navigate("CadastrarDados")
     }
@@ -32,11 +32,15 @@ export default function Home() {
 
 
 
-  async function Me() {
-    await api.get(`/usuario?usuarioID=${usuario.id}`)
+  async function PegarUsuario() {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${usuario.token}`
+    }
+    await api.get(`/usuario?usuarioID=${usuario.id}`, {headers})
       .then((response) => {
 
-        setMe(response.data);
+        setDadosUsuario(response.data);
       })
   }
 
@@ -47,13 +51,13 @@ export default function Home() {
 
 
       <StatusBar backgroundColor={'#fff'} />
-      {!me.produtos ? <Loading /> :
+      {!dadosUsuario.produtos ? <Loading /> :
         <FlatList
-          columnWrapperStyle={{ justifyContent: 'space-between', margin: 5 }}
-          data={me.produtos}
+          columnWrapperStyle={{ justifyContent: 'space-between', margin:5,padding:5 }}
+          data={dadosUsuario.produtos}
           renderItem={({ item }) => <ProdutoFeed item={item} />}
           numColumns={2}
-          ListHeaderComponent={<CabecalhoFeed data={me} />}
+          ListHeaderComponent={<CabecalhoFeed data={dadosUsuario}/>}
           stickyHeaderIndices={[0]}
           stickyHeaderHiddenOnScroll
           keyExtractor={(item) => item.id}
@@ -79,29 +83,18 @@ const styles = StyleSheet.create({
   },
   containerbtns: {
     position: 'absolute',
-    bottom: 20,
-    right: 14,
+    bottom: 30,
+    right: 20,
   },
 
-  btnedit: {
-    width: 60,
-    height: 60,
-    elevation: 5,
-    borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-
-    marginBottom: 10
-  },
   btnadd: {
-    width: 60,
-    height: 60,
-    elevation: 5,
+    width: 55,
+    height: 55,
+    elevation: 3,
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#rgb(226,135,67)'
+    backgroundColor: '#F9A825'
   },
 
 });

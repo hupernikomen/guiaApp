@@ -49,36 +49,25 @@ export function AuthProvider({ children }) {
     }
     getUser()
 
-   
+
 
   }, [])
 
 
-  async function PegaMe() {
-    await api.get('/me')
-      .then((response) => {
-        setMe(response.data)
-      })
-  }
+  const formData = new FormData()
+  async function UpdateUsuario(logo, nome, telefone, bio) {
 
-  async function UpdateUsuario(nome, telefone) {
-
-    const dados = {
-      nome: nome,
-      telefone: telefone,
-      // bio,
-      // endereco,
-      // bairro,
-      // cidade,
-      // entrega
-    }
+    formData.append('logo',logo)
+    formData.append('nome', nome)
+    formData.append('telefone',telefone)
+    formData.append('bio',bio)
 
     const headers = {
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
       'Authorization': `Bearer ${usuario.token}`
     }
 
-    await api.put(`/usuario?usuarioID=${usuario.id}`, dados, { headers })
+    await api.put(`/usuario?usuarioID=${usuario.id}`, formData, { headers })
       .then((response) => {
         console.log(response.status);
 
@@ -138,7 +127,6 @@ export function AuthProvider({ children }) {
       loadingAuth,
       loading,
       UpdateUsuario,
-      PegaMe,
       me,
       signIn,
       signOut,

@@ -6,6 +6,7 @@ import CadastrarProduto from '../pages/CadastrarProduto'
 import Home from '../pages/Home'
 import EditaProduto from '../pages/Edita/produto'
 import CadastrarDados from '../pages/CadastrarDados'
+import Mapa from '../pages/Mapa'
 
 const Stack = createNativeStackNavigator()
 
@@ -16,6 +17,13 @@ function AppRoutes() {
                 headerShown: false
             }} />
             <Stack.Screen name='CadastrarProduto' component={CadastrarProduto} options={{
+                title: "",
+                headerShadowVisible: false,
+                headerStyle: {
+                    backgroundColor: "transparent"
+                }
+            }} />
+            <Stack.Screen name='Mapa' component={Mapa} options={{
                 title: "",
                 headerShadowVisible: false,
                 headerStyle: {

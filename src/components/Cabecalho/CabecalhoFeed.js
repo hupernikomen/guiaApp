@@ -1,42 +1,93 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useTransition } from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
+import api from '../../services/api';
 
 import Feather from 'react-native-vector-icons/Feather'
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useIsFocused } from '@react-navigation/native';
 import { AuthContext } from '../../contexts/authContext';
 
-export default function CabecalhoFeed() {
+import { launchImageLibrary } from 'react-native-image-picker';
 
-  const { PegaMe, me } = useContext(AuthContext)
+export default function CabecalhoFeed({data}) {
 
+  const { usuario } = useContext(AuthContext)
+  const [logo, setLogo] = useState([])
+  const [novalogo, setNovaLogo] = useState("")
   const navigation = useNavigation()
 
+
   useEffect(() => {
-    PegaMe()
+    setNovaLogo(data.logo[0]?.filename)
+  },[])
 
-  }, [me])
+  const options = {
+    title: 'Select Image',
+    type: 'library',
+    options: {
+      mediaType: 'photo',
+      includeBase64: false,
+    },
+  }
 
-  function Avatar() {
-    console.log("alerta");
+  async function Logo() {
+
+    await launchImageLibrary(options, (response) => {
+      if (response.error || response.didCancel) {
+        return;
+      }
+      setLogo(response.assets[0])
+    })
+      .then(() => {
+        CadastrarLogo()
+
+      })
+  }
+
+  const formData = new FormData()
+
+  async function CadastrarLogo() {
+    if (logo.length == 0) {
+      return
+    }
+
+    formData.append('logo', {
+      uri: logo.uri,
+      type: 'image/jpeg', // ou 'image/png', dependendo do tipo de imagem
+      name: logo.fileName
+    });
+
+
+    await api.put(`/usuario?usuarioID=${usuario.id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${usuario.token}`
+      }
+    })
+      .then(function (response) {
+        console.log("response :", response.status);
+      })
+      .catch(function (error) {
+        console.log("error from image :", error);
+      })
+
   }
 
   return (
     <View style={styles.container_header}>
       <View style={styles.me}>
 
+
         <TouchableOpacity
-          onPress={Avatar}
-          style={styles.avatar}>
-          <View ></View>
+        style={styles.logo}
+          onPress={Logo}>
 
         </TouchableOpacity>
-        <View>
+        <View style={{flex:1}}>
 
-          <Text style={styles.namestore}>{me.nome}</Text>
-          <Text>{me.bio}</Text>
-          <Text>{me.telefone}</Text>
-          <Text>{me.entrega ? "Faço Entregas" : null}</Text>
+          <Text style={styles.namestore}>{data.nome}</Text>
+          <Text numberOfLines={2} ellipsizeMode='tail'>{data.bio}</Text>
         </View>
       </View>
 
@@ -51,31 +102,37 @@ export default function CabecalhoFeed() {
 }
 
 const styles = StyleSheet.create({
-  avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginRight: 15,
-    backgroundColor: '#ddd'
-  },
-  btndados: {
-    padding: 5
-  },
   container_header: {
     flexDirection: "row",
     backgroundColor: '#fff',
     justifyContent: 'space-between',
-    padding: 10,
-    elevation: 5
+    padding: 14,
+    elevation: 2,
+    height:100
+  },
+  logo: {
+    width: 60,
+    height: 60,
+    marginRight: 15,
+    borderRadius:60/2,
+    backgroundColor: '#f2f2f2',
+    overflow:'hidden',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  imglogo:{
+    width: 60,
+    height: 60,
   },
   me: {
+    flex:1,
     flexDirection: "row",
-    alignItems: 'center'
+    paddingRight:15
   },
   namestore: {
-    fontSize: 20,
+    fontSize: 22,
     color: '#000',
-    fontWeight: "600"
+    fontWeight: "700"
   }
 
 });
