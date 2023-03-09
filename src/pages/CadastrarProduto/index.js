@@ -145,20 +145,20 @@ export default function CadastrarProduto() {
 
                         <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}
                             onPress={TirarFoto}>
-                            <Text style={{fontSize: 16 }}>
+                            <Text style={{ fontSize: 16 }}>
                                 Tirar Foto
                             </Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ 
-                            flexDirection: 'row', 
-                            alignItems: 'center' ,
-                            position:'absolute',
-                            right:10,
-                            top:10
+                        <TouchableOpacity style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            position: 'absolute',
+                            right: 10,
+                            top: 10
                         }}
                             onPress={() => setModalVisible(!modalVisible)}>
-                            <Ico name="close-thick" size={28}/>
+                            <Ico name="close-thick" size={28} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -173,7 +173,7 @@ export default function CadastrarProduto() {
                         style={{ margin: 14 }}
                         onPress={() => setModalVisible(!modalVisible)}
                     >
-                        <Feather name="image" size={50} color={"#222"} />
+                        <Feather name="image" size={50} color={"#e58003"} />
                     </TouchableOpacity>
                     {imagens.map((item, index) => {
                         return <Image
@@ -184,10 +184,19 @@ export default function CadastrarProduto() {
 
                 </ScrollView>
 
-                <TextInput style={styles.input} onChangeText={setNome} placeholder="Nome do Produto" value={nome} />
-                <TextInput style={styles.input} onChangeText={setDescricao} placeholder="Detalhes do Produto" value={descricao} />
-                <TextInput style={styles.input} keyboardType="numeric" onChangeText={setPreco} placeholder="Preço do Produto" value={preco} />
-                <TextInput style={styles.input} onChangeText={setTamanho} placeholder="Tamanhos do Produto" value={tamanho} />
+                {imagens.length == 0 ?
+                    <Text style={styles.contagemimagens}>Escolha a imagem capa do seu produto...</Text>
+                    :
+                    <Text style={styles.contagemimagens}>Você carregou {imagens.length}/5 imagens</Text>
+
+                }
+
+                <TextInput style={styles.input} onChangeText={setNome} placeholder="Produto" value={nome} />
+                <TextInput style={styles.input} keyboardType="numeric" onChangeText={setPreco} placeholder="Preço" value={preco} />
+                <TextInput style={styles.input} onChangeText={setDescricao} placeholder="Detalhes" value={descricao} />
+                <TextInput style={styles.input} onChangeText={setTamanho} placeholder="Tamanhos" value={tamanho} />
+                <Text style={styles.info}>Separado por virgula. Ex.: P , M , GG</Text>
+
 
                 <Picker
                     style={styles.input}
@@ -221,8 +230,9 @@ export default function CadastrarProduto() {
 
             <TouchableOpacity style={styles.btncadastrar}
                 onPress={CadastrarItem}>
+                <Feather name='save' size={22} color={'#b82539'} />
                 <Text style={styles.txtbtncadastrar}>
-                    Cadastrar
+                    Salvar
                 </Text>
             </TouchableOpacity>
 
@@ -239,6 +249,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#333"
     },
+    contagemimagens: { 
+        marginBottom: 15, 
+        fontSize: 16, 
+        marginLeft: 15, 
+        fontFamily: "Roboto-Light" 
+    },
     fotoReferencia: {
         width: 45,
         height: 45,
@@ -248,32 +264,44 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: 0,
         paddingHorizontal: 15,
-        marginVertical: 5,
         height: 55,
         borderRadius: 25,
         fontSize: 16,
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        marginBottom: 15
     },
     inputdescricao: {
+        minHeight: 55,
         borderWidth: 0,
         paddingHorizontal: 15,
-        marginVertical: 5,
         borderRadius: 25,
         fontSize: 16,
         backgroundColor: "#fff",
 
     },
+    info: {
+        alignSelf: 'flex-end',
+        marginTop: -15,
+        marginBottom: 15,
+        fontFamily: 'Roboto-LightItalic'
+    },
+
     btncadastrar: {
-        backgroundColor: '#F9A825',
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#fff',
         height: 55,
         borderRadius: 55 / 2,
         alignItems: 'center',
         justifyContent: 'center',
         marginVertical: 5,
+        elevation: 3
     },
     txtbtncadastrar: {
-        color: '#fff',
-        fontSize: 16
+        color: '#222',
+        fontSize: 16,
+        marginLeft: 15,
+        fontFamily: 'Roboto-Medium'
     },
     areaModal: {
         flex: 1,

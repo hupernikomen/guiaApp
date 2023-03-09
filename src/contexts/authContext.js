@@ -54,12 +54,16 @@ export function AuthProvider({ children }) {
   }, [])
 
 
-  const formData = new FormData()
-  async function UpdateUsuario(nome, telefone, bio) {
+  async function UpdateUsuario(entrega, nome, endereco, bairro, telefone, bio) {
+    const formData = new FormData()
 
+
+    formData.append('entrega', entrega, Blob)
     formData.append('nome', nome)
-    formData.append('telefone',telefone)
-    formData.append('bio',bio)
+    formData.append('endereco', endereco)
+    formData.append('bairro', bairro)
+    formData.append('telefone', telefone)
+    formData.append('bio', bio)
 
     const headers = {
       'Content-Type': 'multipart/form-data',

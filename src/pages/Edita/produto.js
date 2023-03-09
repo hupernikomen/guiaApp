@@ -18,42 +18,40 @@ export default function EditProduct() {
   const [descricao, setDescricao] = useState('')
   const [preco, setPreco] = useState('')
   const [oferta, setOferta] = useState('')
-  const [tamanho, setTamanho] = useState('')
+  const [tamanho, setTamanho] = useState([])
   const [cor, setCor] = useState('')
   const [id, setID] = useState('')
-  const [arrImagens, setArrImagens] = useState([])
 
   const [categoriaID, setCategoriaID] = useState('')
 
   useEffect(() => {
 
 
-    const { nome, descricao, preco, oferta, tamanho, cor, categoriaID, id, imagens } = route.params
+    const { nome, descricao, preco, oferta, tamanho, cor, categoriaID, id } = route.params
 
     setNome(nome)
     setDescricao(descricao)
     setPreco(preco)
     setOferta(oferta)
+
     setTamanho(tamanho)
     setCor(cor)
     setCategoriaID(categoriaID)
     setID(id)
-    setArrImagens(imagens)
 
-  }, [focus])
-
-  useEffect(() => {
     navigation.setOptions({
+      title: nome && nome,
       headerRight: () => {
         return (
           <TouchableOpacity
             onPress={Delete}>
-            <Feather name='trash' size={24} color={'#F9A825'} />
+            <Feather name='trash' size={24} color={'#fff'} />
           </TouchableOpacity>
         )
       }
     })
-  }, [])
+  }, [focus])
+
 
   async function Update() {
 
@@ -107,31 +105,28 @@ export default function EditProduct() {
     <View style={styles.tela}>
 
       <ScrollView style={{ flex: 1 }}>
-        <View style={styles.containerExcluir}>
-
-          <ScrollView style={styles.scrollimagens} horizontal >
-            {arrImagens.map((item, index) => {
-              return <Image
-                key={index}
-                style={styles.fotoReferencia}
-                source={{ uri: `http://192.168.0.104:3333/files/produtos/${item.filename}` }} />
-            })}
 
 
-
-          </ScrollView>
-          <Text style={styles.info}>Imagens não podem ser editadas</Text>
-        </View>
-
+        <Text style={styles.tituloinput}>Produto</Text>
         <TextInput style={styles.input} value={nome} onChangeText={setNome} />
+
+        <Text style={styles.tituloinput}>Descrição</Text>
         <TextInput multiline={true} numberOfLines={0} textAlignVertical={'top'} style={styles.inputdescricao} value={descricao} onChangeText={setDescricao} />
-        <TextInput style={styles.input} value={preco} onChangeText={setPreco} />
-        <TextInput style={styles.input} value={oferta} onChangeText={setOferta} placeholder="Oferta" />
+
+        <Text style={styles.tituloinput}>Tamanho</Text>
+        <TextInput style={styles.input} value={String(tamanho)} onChangeText={setTamanho} />
+
+        <Text style={styles.tituloinput}>Preço</Text>
+        <TextInput editable={false} style={styles.input} value={preco} onChangeText={setPreco} />
+
+        <Text style={styles.tituloinput}>Preço Oferta</Text>
+        <TextInput style={styles.input} value={oferta} onChangeText={setOferta} placeholder="0,00" />
 
       </ScrollView>
       <TouchableOpacity
         style={styles.btnatualizar}
         onPress={Update}>
+        <Feather name='save' size={22} color={'#b82539'} />
         <Text style={styles.txtbtnatualizar}>Atualizar</Text>
       </TouchableOpacity>
 
@@ -146,8 +141,8 @@ const styles = StyleSheet.create({
     padding: 14
   },
   fotoReferencia: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     margin: 2,
     borderRadius: 6
   },
@@ -156,41 +151,54 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20
   },
+  tituloinput: {
+    marginLeft: 15,
+    zIndex: 99,
+    fontSize: 16,
+    color: '#aaa'
+  },
   input: {
     borderWidth: 0,
     paddingHorizontal: 15,
-    marginVertical: 5,
     height: 55,
     borderRadius: 25,
     fontSize: 16,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    marginBottom: 15
+
   },
   inputdescricao: {
-
+    minHeight: 55,
     borderWidth: 0,
     paddingHorizontal: 15,
-    marginVertical: 5,
     borderRadius: 25,
     fontSize: 16,
     backgroundColor: "#fff",
+    marginBottom: 15
 
   },
   info: {
     fontSize: 15,
     marginTop: 10,
-    color: '#aaa'
+    color: '#aaa',
+    fontFamily: 'Roboto-LightItalic'
   },
   btnatualizar: {
-    backgroundColor: '#F9A825',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
     height: 55,
     borderRadius: 55 / 2,
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 5,
+    elevation: 3
   },
   txtbtnatualizar: {
-    color: '#fff',
-    fontSize: 16
+    color: '#222',
+    fontSize: 16,
+    marginLeft: 15,
+    fontFamily: 'Roboto-Medium'
   }
 
 

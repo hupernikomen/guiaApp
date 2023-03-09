@@ -20,26 +20,31 @@ function AppRoutes() {
                 title: "",
                 headerShadowVisible: false,
                 headerStyle: {
-                    backgroundColor: "transparent"
-                }
+                    backgroundColor:'#b82539',
+                },
+                headerTintColor:'#fff'
             }} />
             <Stack.Screen name='Mapa' component={Mapa} options={{
-                headerStyle:{
-                    backgroundColor:"#fff"
-                }
-            }} />
-            <Stack.Screen name='CadastrarDados' component={CadastrarDados} options={{
-                title:"Meus Dados",
-                headerStyle: {
-                    backgroundColor: "#fff"
-                }
-            }} />
-            <Stack.Screen name='EditaProduto' component={EditaProduto} options={{
-                title: "",
                 headerShadowVisible: false,
                 headerStyle: {
-                    backgroundColor: "transparent"
-                }
+                    backgroundColor:'#b82539',
+                },
+                headerTintColor:'#fff'
+            }} />
+            <Stack.Screen name='CadastrarDados' component={CadastrarDados} options={{
+                title: "Meus Dados",
+                headerShadowVisible: false,
+                headerStyle: {
+                    backgroundColor:'#b82539',
+                },
+                headerTintColor:'#fff'
+            }} />
+            <Stack.Screen name='EditaProduto' component={EditaProduto} options={{
+                headerShadowVisible: false,
+                headerStyle: {
+                    backgroundColor:'#b82539',
+                },
+                headerTintColor:'#fff'
             }} />
         </Stack.Navigator>
     )

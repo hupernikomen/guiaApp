@@ -5,9 +5,7 @@ import api from '../../services/api';
 
 import { AuthContext } from '../../contexts/authContext';
 
-import Loading from '../../components/Loading';
 import ProdutoFeed from '../../components/Produto/ProdutoFeed';
-import CabecalhoFeed from '../../components/Cabecalho/CabecalhoFeed';
 
 import { launchImageLibrary } from 'react-native-image-picker';
 
@@ -19,20 +17,22 @@ export default function Home() {
 
   const navigation = useNavigation();
   const focus = useIsFocused()
-  const [dadosUsuario, setDadosUsuario] = useState([]);
+  const [dadosHeader, setDadosHeader] = useState([]);
 
   const [logo, setLogo] = useState([])
+  const [logodisplay, setLogoDisplay] = useState("")
 
   useEffect(() => {
-    
+
     PegarUsuario()
-    
-    const { nome, telefone } = dadosUsuario
-    if (!nome || !telefone) {
-      navigation.navigate("CadastrarDados")
-    }
-    
+
   }, [focus])
+
+  useEffect(() => {
+    Header()
+
+  })
+
 
   const options = {
     title: 'Select Image',
@@ -51,7 +51,7 @@ export default function Home() {
       }
     })
       .then((response) => {
-        
+
         setLogo(response.assets[0])
         CadastrarLogo()
 
@@ -79,7 +79,7 @@ export default function Home() {
       }
     })
       .then(function (response) {
-        console.log("response :", response.status);
+        setLogoDisplay(response.data?.logo[0]?.filename);
       })
       .catch(function (error) {
         console.log("error from image :", error);
@@ -87,46 +87,54 @@ export default function Home() {
 
   }
 
-  function Header({data}) {
+  function Header() {
 
     return (
       <View style={styles.container_header}>
         <View style={styles.me}>
-  
-  
+
+
           <TouchableOpacity
             style={styles.logo}
             onPress={Logo}>
-            <Image style={{ width: 60, height: 60 }} source={{ uri: `http://192.168.0.104:3333/files/logo/${data.logo[0]?.filename}` }} />
-  
+            <Image style={{ width: 60, height: 60 }} source={{ uri: `http://192.168.0.104:3333/files/logo/${logodisplay}` }} />
+
           </TouchableOpacity>
           <View style={{ flex: 1 }}>
-  
-            <Text style={styles.namestore}>{data.nome}</Text>
-            <Text numberOfLines={2} ellipsizeMode='tail'>{data.bio}</Text>
+
+            <Text style={styles.namestore}>{dadosHeader.nome}</Text>
+            <Text style={styles.bio} numberOfLines={1} ellipsizeMode='tail'>{dadosHeader.bio}</Text>
+            <Text style={styles.contagem}>{dadosHeader.produtos?.length} produtos</Text>
           </View>
         </View>
-  
+
         <TouchableOpacity
           style={styles.btndados}
           onPress={() => navigation.navigate("CadastrarDados")}
         >
-          <Feather name='more-vertical' size={22} />
+          <Feather name='more-vertical' size={22} color={'#fff'} />
         </TouchableOpacity>
       </View>
     );
   }
-  
-  
+
+
   async function PegarUsuario() {
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${usuario.token}`
     }
-    await api.get(`/usuario?usuarioID=${usuario.id}`, {headers})
+    await api.get(`/usuario?usuarioID=${usuario.id}`, { headers })
       .then((response) => {
 
-        setDadosUsuario(response.data);
+        setDadosHeader(response.data);
+
+        const { nome, endereco, bairro, whatsapp, telefone, bio, logo } = response.data
+        if (!nome || !endereco || !bairro || !telefone || !bio) {
+          navigation.navigate("CadastrarDados")
+        }
+
+        setLogoDisplay(logo[0]?.filename);
       })
   }
 
@@ -135,27 +143,24 @@ export default function Home() {
 
     <View style={styles.container}>
 
-      <StatusBar backgroundColor={'#fff'} />
-      {!dadosUsuario.produtos ? <Loading /> :
-        <FlatList
-          columnWrapperStyle={{ margin:2}}
-          data={dadosUsuario.produtos}
-          renderItem={({ item }) => <ProdutoFeed item={item} />}
-          numColumns={3}
-          ListHeaderComponent={<Header data={dadosUsuario}/>}
-          stickyHeaderIndices={[0]}
-          stickyHeaderHiddenOnScroll
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
+      <FlatList
+        columnWrapperStyle={{ margin: 2 }}
+        data={dadosHeader?.produtos}
+        renderItem={({ item }) => <ProdutoFeed item={item} />}
+        numColumns={3}
+        ListHeaderComponent={<Header data={dadosHeader} />}
+        stickyHeaderIndices={[0]}
+        stickyHeaderHiddenOnScroll
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
 
-        />
-      }
+      />
 
       <View style={styles.containerbtns}>
         <TouchableOpacity
           onPress={() => navigation.navigate("CadastrarProduto")}
           style={styles.btnadd}>
-          <Feather name='plus' size={25} color={"#fff"}/>
+          <Feather name='plus' size={25} color={"#fff"} />
         </TouchableOpacity>
       </View>
     </View>
@@ -168,10 +173,10 @@ const styles = StyleSheet.create({
   },
   container_header: {
     flexDirection: "row",
-    backgroundColor: '#fff',
+    backgroundColor: '#b82539',
     justifyContent: 'space-between',
     padding: 14,
-    elevation: 2,
+    elevation: 5,
     height: 100
   },
   logo: {
@@ -195,10 +200,17 @@ const styles = StyleSheet.create({
   },
   namestore: {
     fontSize: 22,
-    color: '#000',
-    fontWeight: "700"
-  }
-,
+    color: '#fff',
+    fontFamily: "Roboto-Bold"
+  },
+  bio: {
+    color: '#fff',
+    fontFamily: 'Roboto-Light'
+  },
+  contagem: {
+    color: '#fff',
+    fontFamily: "Roboto-Light"
+  },
   containerbtns: {
     position: 'absolute',
     bottom: 30,
@@ -212,7 +224,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F9A825'
+    backgroundColor: '#b82539'
   },
 
 });

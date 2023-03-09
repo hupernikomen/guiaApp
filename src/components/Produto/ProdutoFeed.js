@@ -114,20 +114,22 @@ const styles = StyleSheet.create({
   cifrao: {
     fontSize: 10,
     color: '#777',
-    marginTop: 2
+    marginTop: 2,
+    fontFamily:"Roboto-Regular",
   },
   real: {
     color: '#222',
     fontSize: 16,
     marginTop: -2,
-    marginLeft: 3
+    marginLeft: 3,
+    fontFamily:"Roboto-Bold",
   },
   cents: {
     color: '#222',
     fontSize: 12
   },
   priceoff: {
-    backgroundColor: "#F9A825",
+    backgroundColor: "#e58003",
     padding:2,
     color: '#fff',
     fontSize: 12
@@ -135,7 +137,9 @@ const styles = StyleSheet.create({
   },
   name: {
     color: '#000',
-    marginVertical: 2
+    fontFamily:"Roboto-Regular",
+    marginVertical: 2,
+    fontSize:13
   },
 
 });

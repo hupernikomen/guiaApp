@@ -10,17 +10,25 @@ import Routes from "./src/routes";
 export default function App() {
 
   const MyTheme = {
+    dark: false,
     colors: {
-      backgroundColor:"#fff"
+      primary: 'rgb(255, 45, 85)',
+      background: '#f1f1f110',
+      card: 'rgb(255, 255, 255)',
+      text: 'rgb(28, 28, 30)',
+      border: 'rgb(199, 199, 204)',
+      notification: 'rgb(255, 69, 58)',
     },
   };
+  
+  
   return (
 
     <NavigationContainer theme={MyTheme}>
 
       <AuthProvider>
 
-        <StatusBar backgroundColor={"#fff"} barStyle="dark-content" translucent={false} />
+        <StatusBar backgroundColor={"#b82539"} barStyle="light-content" translucent={false} />
         <Routes />
       </AuthProvider>
 
