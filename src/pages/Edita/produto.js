@@ -88,8 +88,6 @@ export default function EditProduct() {
       'Authorization': `Bearer ${usuario.token}`
     }
 
-    console.log(id);
-
     await api.delete(`/produto?produtoID=${route.params?.id}`, { headers })
       .then((response) => {
         console.log(response.status);

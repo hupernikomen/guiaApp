@@ -19,73 +19,12 @@ export default function Home() {
   const focus = useIsFocused()
   const [dadosHeader, setDadosHeader] = useState([]);
 
-  const [logo, setLogo] = useState([])
-  const [logodisplay, setLogoDisplay] = useState("")
-
   useEffect(() => {
 
     PegarUsuario()
 
   }, [focus])
 
-  useEffect(() => {
-    Header()
-
-  })
-
-
-  const options = {
-    title: 'Select Image',
-    type: 'library',
-    options: {
-      mediaType: 'photo',
-      includeBase64: false,
-    },
-  }
-
-  async function Logo() {
-
-    await launchImageLibrary(options, (response) => {
-      if (response.error || response.didCancel) {
-        return;
-      }
-    })
-      .then((response) => {
-
-        setLogo(response.assets[0])
-        CadastrarLogo()
-
-      })
-  }
-
-
-  async function CadastrarLogo() {
-    const formData = new FormData()
-    if (logo.length == 0) {
-      return
-    }
-
-    formData.append('logo', {
-      uri: logo.uri,
-      type: 'image/jpeg', // ou 'image/png', dependendo do tipo de imagem
-      name: logo.fileName
-    });
-
-
-    await api.put(`/usuario?usuarioID=${usuario.id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `Bearer ${usuario.token}`
-      }
-    })
-      .then(function (response) {
-        setLogoDisplay(response.data?.logo[0]?.filename);
-      })
-      .catch(function (error) {
-        console.log("error from image :", error);
-      })
-
-  }
 
   function Header() {
 
@@ -94,12 +33,8 @@ export default function Home() {
         <View style={styles.me}>
 
 
-          <TouchableOpacity
-            style={styles.logo}
-            onPress={Logo}>
-            <Image style={{ width: 60, height: 60 }} source={{ uri: `http://192.168.0.104:3333/files/logo/${logodisplay}` }} />
+          <Image style={[styles.logo, { width: 60, height: 60 }]} source={{ uri: `http://192.168.0.104:3333/files/logo/${dadosHeader.logo[0].filename}` }} />
 
-          </TouchableOpacity>
           <View style={{ flex: 1 }}>
 
             <Text style={styles.namestore}>{dadosHeader.nome}</Text>
@@ -129,12 +64,11 @@ export default function Home() {
 
         setDadosHeader(response.data);
 
-        const { nome, endereco, bairro, whatsapp, telefone, bio, logo } = response.data
+        const { nome, endereco, bairro, telefone, bio } = response.data
         if (!nome || !endereco || !bairro || !telefone || !bio) {
           navigation.navigate("CadastrarDados")
         }
 
-        setLogoDisplay(logo[0]?.filename);
       })
   }
 
@@ -182,6 +116,8 @@ const styles = StyleSheet.create({
   logo: {
     width: 60,
     height: 60,
+    borderWidth:1.5,
+    borderColor:'#ffffff50',
     marginRight: 15,
     borderRadius: 60 / 2,
     backgroundColor: '#f2f2f2',

@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, Dimensions, Alert } from 'react-native';
 
 const { width, height } = Dimensions.get("window")
 
 import api from '../../services/api';
 
-import ModalConfirm from '../../components/Modal';
 import { AuthContext } from '../../contexts/authContext';
 
 import { useNavigation } from '@react-navigation/native';
@@ -26,10 +25,10 @@ export default function Mapa() {
 
   function CarregaTitulo() {
     navigation.setOptions({
-      headerTitleStyle:{
-        fontFamily:"Roboto-Regular",
+      headerTitleStyle: {
+        fontFamily: "Roboto-Regular",
         fontSize: 18
-    },
+      },
       title: marker && String(parseFloat(marker.latitude).toFixed(7) + " "
         + parseFloat(marker.longitude).toFixed(7))
     })
@@ -70,13 +69,20 @@ export default function Mapa() {
     const { latitude, longitude } = e.nativeEvent.coordinate
     // Perguntar se quer salvar novo marker
 
+    Alert.alert("Mudar Localização", "Você deseja mesmo alterar sua localização?", [
+      {
+        text: "Sim",
+        onPress: () => {
+          setMarker({
+            latitude,
+            longitude
+          })
 
-    setMarker({
-      latitude,
-      longitude
-    })
-
-    SalvarLatlng(latitude, longitude)
+          SalvarLatlng(latitude, longitude)
+        },
+      },
+      { text: "Não" },
+    ])
   }
 
 
@@ -115,17 +121,21 @@ export default function Mapa() {
         onPress={CapturaLatLng}
         style={{ width, height }}
         region={region}
-
       >
         {marker &&
 
           <Marker
+
             coordinate={marker}
             pinColor="#D84315"
             loadingEnabled
           />
         }
+
+
       </MapView>
+
+
 
     </View>
   );
