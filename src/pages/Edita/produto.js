@@ -106,28 +106,31 @@ export default function EditProduct() {
   return (
     <View style={styles.tela}>
 
-      <View style={styles.containerExcluir}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.containerExcluir}>
 
-        <ScrollView style={styles.scrollimagens} horizontal >
-          {arrImagens.map((item, index) => {
-            return <Image
-              key={index}
-              style={styles.fotoReferencia}
-              source={{ uri: `http://192.168.0.104:3333/files/produtos/${item.filename}` }} />
-          })}
+          <ScrollView style={styles.scrollimagens} horizontal >
+            {arrImagens.map((item, index) => {
+              return <Image
+                key={index}
+                style={styles.fotoReferencia}
+                source={{ uri: `http://192.168.0.104:3333/files/produtos/${item.filename}` }} />
+            })}
 
-        </ScrollView>
 
-        <Text style={styles.info}>Imagens não podem ser editadas</Text>
 
-      </View>
-      <TextInput style={styles.input} value={nome} onChangeText={setNome} />
-      <TextInput multiline={true} numberOfLines={0} textAlignVertical={'top'} style={styles.inputdescricao} value={descricao} onChangeText={setDescricao} />
-      <TextInput style={styles.input} value={preco} onChangeText={setPreco} />
-      <TextInput style={styles.input} value={oferta} onChangeText={setOferta} placeholder="Oferta" />
+          </ScrollView>
+          <Text style={styles.info}>Imagens não podem ser editadas</Text>
+        </View>
 
+        <TextInput style={styles.input} value={nome} onChangeText={setNome} />
+        <TextInput multiline={true} numberOfLines={0} textAlignVertical={'top'} style={styles.inputdescricao} value={descricao} onChangeText={setDescricao} />
+        <TextInput style={styles.input} value={preco} onChangeText={setPreco} />
+        <TextInput style={styles.input} value={oferta} onChangeText={setOferta} placeholder="Oferta" />
+
+      </ScrollView>
       <TouchableOpacity
-      style={styles.btnatualizar}
+        style={styles.btnatualizar}
         onPress={Update}>
         <Text style={styles.txtbtnatualizar}>Atualizar</Text>
       </TouchableOpacity>
@@ -163,7 +166,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   inputdescricao: {
-    
+
     borderWidth: 0,
     paddingHorizontal: 15,
     marginVertical: 5,
@@ -172,22 +175,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
 
   },
-  info:{
-    fontSize:15,
-    marginTop:10,
-    color:'#aaa'
+  info: {
+    fontSize: 15,
+    marginTop: 10,
+    color: '#aaa'
   },
   btnatualizar: {
-    backgroundColor:'#F9A825',
-    height:55,
-    borderRadius: 55/2,
-    alignItems:'center',
-    justifyContent:'center',
+    backgroundColor: '#F9A825',
+    height: 55,
+    borderRadius: 55 / 2,
+    alignItems: 'center',
+    justifyContent: 'center',
     marginVertical: 5,
   },
   txtbtnatualizar: {
-    color:'#fff',
-    fontSize:16
+    color: '#fff',
+    fontSize: 16
   }
 
 

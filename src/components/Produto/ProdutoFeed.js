@@ -50,9 +50,12 @@ function Preco({ preco }) {
 
   return (
     <View style={styles.containerprice}>
+      <View style={{flexDirection:"row"}}>
+
       <Text style={styles.cifrao}>R$</Text>
       <Text style={styles.real}>{arrPrice[0]}</Text>
       <Text style={styles.cents}>,{arrPrice[1]}</Text>
+      </View>
     </View>
   )
 }
@@ -64,9 +67,11 @@ function Oferta({ oferta, preco }) {
 
   return (
     <View style={styles.containerprice}>
-      <Text style={styles.cifrao}>R$</Text>
-      <Text style={styles.real}>{arrOff[0]}</Text>
-      <Text style={styles.cents}>,{arrOff[1]}</Text>
+      <View style={{ flexDirection: "row" }}>
+        <Text style={styles.cifrao}>R$</Text>
+        <Text style={styles.real}>{arrOff[0]}</Text>
+        <Text style={styles.cents}>,{arrOff[1]}</Text>
+      </View>
 
       <Text style={styles.priceoff}>
         {CalculoOferta(preco, oferta)}
@@ -80,22 +85,23 @@ function CalculoOferta(preco, oferta) {
   const valor = ((oferta * 100) / preco)
 
   return (
-    <Text>{valor.toFixed(0)}% Off</Text>
+    <Text>-{valor.toFixed(0)}%</Text>
   )
 
 }
 
 const styles = StyleSheet.create({
   containerproduct: {
-    flex: 1 / 2,
-    maxWidth: "48.5%",
+    flex: 1,
+    maxWidth: "32%",
     backgroundColor: "#fff",
     overflow: "hidden",
-    borderRadius: 6
+    borderRadius: 6,
+    margin:4
   },
   containerInfo: {
-    paddingHorizontal: 10,
-    paddingVertical: 8,
+    paddingHorizontal: 6,
+    paddingVertical: 5,
   },
   imageproduct: {
     resizeMode: 'cover',
@@ -103,6 +109,7 @@ const styles = StyleSheet.create({
   },
   containerprice: {
     flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   cifrao: {
     fontSize: 10,
@@ -111,19 +118,19 @@ const styles = StyleSheet.create({
   },
   real: {
     color: '#222',
-    fontSize: 20,
+    fontSize: 16,
     marginTop: -2,
     marginLeft: 3
   },
   cents: {
     color: '#222',
+    fontSize: 12
   },
   priceoff: {
-    marginLeft: 10,
     backgroundColor: "#F9A825",
-    paddingVertical:2,
-    paddingHorizontal:5,
-    color:'#fff',
+    padding:2,
+    color: '#fff',
+    fontSize: 12
 
   },
   name: {

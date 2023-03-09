@@ -55,9 +55,8 @@ export function AuthProvider({ children }) {
 
 
   const formData = new FormData()
-  async function UpdateUsuario(logo, nome, telefone, bio) {
+  async function UpdateUsuario(nome, telefone, bio) {
 
-    formData.append('logo',logo)
     formData.append('nome', nome)
     formData.append('telefone',telefone)
     formData.append('bio',bio)

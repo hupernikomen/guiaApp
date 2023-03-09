@@ -24,17 +24,14 @@ function AppRoutes() {
                 }
             }} />
             <Stack.Screen name='Mapa' component={Mapa} options={{
-                title: "",
-                headerShadowVisible: false,
-                headerStyle: {
-                    backgroundColor: "transparent"
+                headerStyle:{
+                    backgroundColor:"#fff"
                 }
             }} />
             <Stack.Screen name='CadastrarDados' component={CadastrarDados} options={{
-                title: "",
-                headerShadowVisible: false,
+                title:"Meus Dados",
                 headerStyle: {
-                    backgroundColor: "transparent"
+                    backgroundColor: "#fff"
                 }
             }} />
             <Stack.Screen name='EditaProduto' component={EditaProduto} options={{

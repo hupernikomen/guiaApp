@@ -59,15 +59,18 @@ export default function CadastrarDados() {
 
             <ScrollView style={{ flex: 1 }}>
 
-                <TextInput inlineImageLeft="store" inlineImagePadding={50} style={styles.input} onChangeText={setNome} value={nome} placeholder="Nome da Loja" />
-                <TextInput inlineImageLeft="whatsapp" inlineImagePadding={50} style={styles.input} onChangeText={setTelefone} value={telefone} placeholder="Telefone" />
-                <TextInput inlineImageLeft='image_text' inlineImagePadding={50} multiline numberOfLines={0} verticalAlign={'top'} maxLength={300} style={styles.inputdescricao} onChangeText={setBio} value={bio} placeholder="Bio" />
+                <Text style={styles.tituloinput}>Nome da Loja</Text>
+                <TextInput style={styles.input} onChangeText={setNome} value={nome} placeholder="Nome da Loja" maxLength={35}/>
+                <Text style={styles.tituloinput}>Whatsapp</Text>
+                <TextInput style={styles.input} onChangeText={setTelefone} value={telefone} placeholder="Telefone" />
+                <Text style={styles.tituloinput}>Sobre seu negócio</Text>
+                <TextInput multiline numberOfLines={0} verticalAlign={'top'} maxLength={300} style={styles.inputdescricao} onChangeText={setBio} value={bio} placeholder="Bio" />
                 <Text style={{ alignSelf: "flex-end" }}>{bio.length}/300</Text>
             </ScrollView>
             <TouchableOpacity
                 style={styles.btnatualizar}
                 onPress={() => {
-                    UpdateUsuario(logo, nome, telefone, bio)
+                    UpdateUsuario(nome, telefone, bio)
                     navigation.navigate("Home")
                 }
                 }>
@@ -82,6 +85,12 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 14
     },
+    tituloinput:{
+        marginLeft:15,
+        zIndex:99,
+        fontSize:16,
+        color:'#aaa'
+    },
     input: {
         borderWidth: 0,
         paddingHorizontal: 15,
@@ -89,7 +98,8 @@ const styles = StyleSheet.create({
         height: 55,
         borderRadius: 25,
         fontSize: 16,
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        marginBottom:15
     },
     inputdescricao: {
 

@@ -11,6 +11,7 @@ export default function App() {
 
   const MyTheme = {
     colors: {
+      backgroundColor:"#fff"
     },
   };
   return (
