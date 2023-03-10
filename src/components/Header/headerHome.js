@@ -1,16 +1,13 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 
-
 import Feather from 'react-native-vector-icons/Feather'
 
-import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HeaderHome({ data }) {
 
-  // const [logo, setLogo] = useState([])
-  const { logo: file } = data
-
+  const { logo } = data
 
   const navigation = useNavigation()
 
@@ -19,10 +16,10 @@ export default function HeaderHome({ data }) {
 
       <View style={styles.me}>
 
-        {file &&
+        {logo &&
           <Image
             style={[styles.logo, { width: 60, height: 60 }]}
-            source={{ uri: `http://192.168.0.104:3333/files/logo/${file[0].filename}` }} />
+            source={{ uri: `http://192.168.0.104:3333/files/logo/${logo[0].filename}` }} />
         }
 
 

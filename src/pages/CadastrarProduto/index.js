@@ -123,7 +123,8 @@ export default function CadastrarProduto() {
 
 
     return (
-        <View style={styles.tela}>
+        <View
+            style={styles.tela}>
 
             <Modal
                 animationType="slide"
@@ -134,46 +135,63 @@ export default function CadastrarProduto() {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <View style={styles.areaModal}>
-                    <View style={styles.modal}>
-                        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}
+                <View
+                    style={styles.areaModal}>
+                    <View
+                        style={styles.modal}>
+                        <TouchableOpacity
+                            style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}
                             onPress={BuscaFoto}>
-                            <Text style={{ fontSize: 16 }}>
+                            <Text
+                                style={{ fontSize: 16 }}>
                                 Galeria
                             </Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}
+                        <TouchableOpacity
+                            style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}
                             onPress={TirarFoto}>
-                            <Text style={{ fontSize: 16 }}>
+                            <Text
+                                style={{ fontSize: 16 }}>
                                 Tirar Foto
                             </Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            position: 'absolute',
-                            right: 10,
-                            top: 10
-                        }}
+                        <TouchableOpacity
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                position: 'absolute',
+                                right: 10,
+                                top: 10
+                            }}
                             onPress={() => setModalVisible(!modalVisible)}>
-                            <Ico name="close-thick" size={28} />
+                            <Ico
+                                name="close-thick"
+                                size={28} />
                         </TouchableOpacity>
                     </View>
                 </View>
 
             </Modal>
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={{ flex: 1 }}>
 
-                <ScrollView horizontal contentContainerStyle={{ alignItems: "center" }}>
+                <ScrollView
+                    showsHorizontalScrollIndicator={false}
+                    horizontal
+                    contentContainerStyle={{ alignItems: "center" }}>
 
                     <TouchableOpacity
                         disabled={imagens.length == 5 && true}
                         style={{ margin: 14 }}
                         onPress={() => setModalVisible(!modalVisible)}
                     >
-                        <Feather name="image" size={50} color={"#e58003"} />
+                        <Feather
+                            name="image"
+                            size={50}
+                            color={"#e58003"} />
                     </TouchableOpacity>
                     {imagens.map((item, index) => {
                         return <Image
@@ -185,19 +203,64 @@ export default function CadastrarProduto() {
                 </ScrollView>
 
                 {imagens.length == 0 ?
-                    <Text style={styles.contagemimagens}>Escolha a imagem capa do seu produto...</Text>
+                    <Text
+                        style={styles.contagemimagens}>
+                        Escolha a imagem capa do seu produto...
+                    </Text>
                     :
-                    <Text style={styles.contagemimagens}>Você carregou {imagens.length}/5 imagens</Text>
+                    <Text
+                        style={styles.contagemimagens}>
+                        Você carregou {imagens.length}/5 imagens
+                    </Text>
 
                 }
 
-                <TextInput style={styles.input} onChangeText={setNome} placeholder="Produto" value={nome} />
-                <TextInput style={styles.input} keyboardType="numeric" onChangeText={setPreco} placeholder="Preço" value={preco} />
-                <TextInput style={styles.input} onChangeText={setDescricao} placeholder="Detalhes" value={descricao} />
-                <TextInput style={styles.input} onChangeText={setTamanho} placeholder="Tamanhos" value={tamanho} />
-                <Text style={styles.info}>Separado por virgula. Ex.: P , M , GG</Text>
+                <Text
+                    style={styles.tituloinput}>
+                    Produto
+                </Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setNome}
+                    placeholder="..."
+                    value={nome} />
+
+                <Text
+                    style={styles.tituloinput}>
+                    Preço
+                </Text>
+                <TextInput
+                    style={styles.input}
+                    keyboardType="numeric"
+                    onChangeText={setPreco}
+                    placeholder="..."
+                    value={preco} />
+
+                <Text
+                    style={styles.tituloinput}>
+                    Detalhes do produto
+                </Text>
+                <TextInput style={styles.input} onChangeText={setDescricao} placeholder="..." value={descricao} />
+
+                <Text
+                    style={styles.tituloinput}>
+                    Tamanhos
+                </Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setTamanho}
+                    placeholder="..."
+                    value={tamanho} />
+                <Text
+                    style={styles.info}>
+                    Separado por virgula. Ex.: P , M , GG
+                </Text>
 
 
+                <Text
+                    style={styles.tituloinput}>
+                    Categoria do produto
+                </Text>
                 <Picker
                     style={styles.input}
                     mode="dropdown"
@@ -208,7 +271,7 @@ export default function CadastrarProduto() {
                 >
                     <Picker.Item
                         value="0"
-                        label="Categoria"
+                        label="..."
                         enabled={false}
                         style={{ color: "#999" }}
                     />
@@ -226,15 +289,20 @@ export default function CadastrarProduto() {
                     })}
                 </Picker>
 
+                <TouchableOpacity
+                    style={styles.btncadastrar}
+                    onPress={CadastrarItem}>
+                    <Feather
+                        name='save'
+                        size={22}
+                        color={'#b82539'} />
+                    <Text
+                        style={styles.txtbtncadastrar}>
+                        Salvar
+                    </Text>
+                </TouchableOpacity>
             </ScrollView>
 
-            <TouchableOpacity style={styles.btncadastrar}
-                onPress={CadastrarItem}>
-                <Feather name='save' size={22} color={'#b82539'} />
-                <Text style={styles.txtbtncadastrar}>
-                    Salvar
-                </Text>
-            </TouchableOpacity>
 
         </View>
     )
@@ -249,11 +317,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#333"
     },
-    contagemimagens: { 
-        marginBottom: 15, 
-        fontSize: 16, 
-        marginLeft: 15, 
-        fontFamily: "Roboto-Light" 
+    contagemimagens: {
+        marginBottom: 15,
+        fontSize: 16,
+        marginLeft: 15,
+        fontFamily: "Roboto-Light"
     },
     fotoReferencia: {
         width: 45,
@@ -261,23 +329,31 @@ const styles = StyleSheet.create({
         margin: 2,
         borderRadius: 6
     },
+    tituloinput: {
+        backgroundColor: '#fff',
+        marginLeft: 20,
+        marginBottom: -25,
+        zIndex: 99,
+        color: '#777',
+        fontFamily: 'Roboto-LightItalic'
+    },
     input: {
         borderWidth: 0,
-        paddingHorizontal: 15,
-        height: 55,
-        borderRadius: 25,
+        paddingHorizontal: 20,
+        height: 70,
+        borderRadius: 20,
         fontSize: 16,
         backgroundColor: "#fff",
         marginBottom: 15
     },
     inputdescricao: {
-        minHeight: 55,
+        paddingVertical: 25,
+        minHeight: 100,
         borderWidth: 0,
-        paddingHorizontal: 15,
+        paddingHorizontal: 20,
         borderRadius: 25,
         fontSize: 16,
         backgroundColor: "#fff",
-
     },
     info: {
         alignSelf: 'flex-end',
@@ -294,8 +370,8 @@ const styles = StyleSheet.create({
         borderRadius: 55 / 2,
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 5,
-        elevation: 3
+        elevation: 3,
+        marginVertical: 30
     },
     txtbtncadastrar: {
         color: '#222',

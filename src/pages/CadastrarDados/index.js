@@ -4,7 +4,8 @@ import { AuthContext } from "../../contexts/authContext"
 
 import api from '../../services/api';
 
-import Feather from 'react-native-vector-icons/Feather'
+import IcoMc from 'react-native-vector-icons/MaterialCommunityIcons'
+import IcoFeather from 'react-native-vector-icons/Feather'
 import { launchImageLibrary } from 'react-native-image-picker';
 
 import { useNavigation, useIsFocused } from '@react-navigation/native';
@@ -106,22 +107,46 @@ export default function CadastrarDados() {
 
     return (
 
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.tela}>
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.tela}>
 
 
             <TouchableOpacity
                 onPress={Logo}
-                style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', marginBottom: 20, marginLeft: 15, paddingVertical: 15, borderBottomWidth: .5, borderBottomColor: "#777" }}>
-                <Text style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>Foto Perfil</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => navigation.navigate("Mapa")}
-                style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', marginBottom: 20, marginLeft: 15, paddingVertical: 15, borderBottomWidth: .5, borderBottomColor: "#777" }}>
-                <Text style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>Minha Localização</Text>
+                style={styles.links}>
+
+                <Text
+                    style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>
+                    Logo
+                </Text>
+
+                <IcoMc name='account-box' size={30} color={'#b82539'} />
+
             </TouchableOpacity>
 
-            <View style={{ marginBottom: 25, flexDirection: "row", justifyContent: 'space-between', alignItems: "center" }}>
-                <Text style={{ color: '#222', fontFamily: "Roboto-Regular", fontSize: 16, marginLeft: 15 }}>Faço Entregas</Text>
+            <TouchableOpacity
+                onPress={() => navigation.navigate("Mapa")}
+                style={styles.links}>
+
+                <Text
+                    style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>
+                    Localização
+                </Text>
+                <IcoMc
+                    name='map-marker'
+                    size={30}
+                    color={'#b82539'} />
+
+            </TouchableOpacity>
+
+            <View style={[styles.links, { marginBottom: 30 }]}>
+
+                <Text
+                    style={{ color: '#222', fontFamily: "Roboto-Regular", fontSize: 16 }}>
+                    Entregas
+                </Text>
+
                 <Switch
                     trackColor={{ false: '#767577', true: '#ddd' }}
                     thumbColor={entrega ? '#b82539' : '#f4f3f4'}
@@ -130,30 +155,91 @@ export default function CadastrarDados() {
                 />
             </View>
 
-            <View style={styles.containerinput}>
-                <Text style={styles.tituloinput}>Nome da Loja</Text>
-                <TextInput style={styles.input} onChangeText={setNome} value={nome} placeholder=" ... " maxLength={35} />
+            <View
+                style={styles.containerinput}>
+
+                <Text
+                    style={styles.tituloinput}>
+                    Nome da Loja
+                </Text>
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setNome}
+                    value={nome} placeholder=" ... "
+                    maxLength={35} />
+
             </View>
 
-            <View style={styles.containerinput}>
-                <Text style={styles.tituloinput}>Endereço</Text>
-                <TextInput style={styles.input} onChangeText={setEndereco} value={endereco} placeholder="..." maxLength={35} />
+            <View
+                style={styles.containerinput}>
+
+                <Text
+                    style={styles.tituloinput}>
+                    Endereço
+                </Text>
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setEndereco}
+                    value={endereco}
+                    placeholder="..."
+                    maxLength={35} />
+
             </View>
 
-            <View style={styles.containerinput}>
-                <Text style={styles.tituloinput}>Bairro</Text>
-                <TextInput style={styles.input} onChangeText={setBairro} value={bairro} placeholder="..." maxLength={35} />
+            <View
+                style={styles.containerinput}>
+                <Text
+                    style={styles.tituloinput}>
+                    Bairro
+                </Text>
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setBairro}
+                    value={bairro}
+                    placeholder="..."
+                    maxLength={35} />
+
             </View>
 
-            <View style={styles.containerinput}>
-                <Text style={styles.tituloinput}>Whatsapp</Text>
-                <TextInput style={styles.input} onChangeText={setTelefone} value={telefone} placeholder=" ... " />
+            <View
+                style={styles.containerinput}>
+
+                <Text style={styles.tituloinput}>
+                    Whatsapp
+                </Text>
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setTelefone}
+                    value={telefone}
+                    placeholder=" ... " />
+
             </View>
 
-            <View style={styles.containerinput}>
-                <Text style={styles.tituloinput}>Sobre seu negócio</Text>
-                <TextInput multiline numberOfLines={0} verticalAlign={'top'} maxLength={300} style={styles.inputdescricao} onChangeText={setBio} value={bio} placeholder="Bio" />
-                <Text style={{ alignSelf: "flex-end" }}>{bio.length}/300</Text>
+            <View
+                style={styles.containerinput}>
+
+                <Text style={styles.tituloinput}>
+                    Sobre seu negócio
+                </Text>
+
+                <TextInput
+                    multiline numberOfLines={0}
+                    verticalAlign={'top'}
+                    maxLength={300}
+                    style={styles.inputdescricao}
+                    onChangeText={setBio}
+                    value={bio}
+                    placeholder="Bio" />
+
+                <Text
+                    style={{ alignSelf: "flex-end" }}>
+                    {bio.length}/300
+                </Text>
+
             </View>
 
 
@@ -164,8 +250,15 @@ export default function CadastrarDados() {
                     navigation.navigate("Home")
                 }
                 }>
-                <Feather name='save' size={22} color={'#b82539'} />
-                <Text style={styles.txtbtnatualizar}>Atualizar Informações</Text>
+                <IcoFeather
+                    name='save'
+                    size={22}
+                    color={'#b82539'} />
+
+                <Text style={styles.txtbtnatualizar}>
+                    Atualizar Informações
+                </Text>
+
             </TouchableOpacity>
         </ScrollView>
     );
@@ -176,7 +269,18 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 14,
     },
+    links: {
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'baseline',
+        marginBottom: 20,
+        marginLeft: 20,
+        paddingVertical: 5,
+        borderBottomWidth: .5,
+        borderBottomColor: "#777"
+    },
     tituloinput: {
+        backgroundColor: '#fff',
         marginLeft: 20,
         marginBottom: -25,
         zIndex: 99,
@@ -193,6 +297,7 @@ const styles = StyleSheet.create({
         marginBottom: 15
     },
     inputdescricao: {
+        paddingVertical: 25,
         minHeight: 100,
         borderWidth: 0,
         paddingHorizontal: 20,
@@ -210,7 +315,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 3,
-        marginBottom: 30
+        marginVertical: 30
     },
     txtbtnatualizar: {
         color: '#222',

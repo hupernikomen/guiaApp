@@ -100,33 +100,85 @@ export default function EditProduct() {
   }
 
   return (
-    <View style={styles.tela}>
+    <View
+      style={styles.tela}>
 
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1 }}>
 
 
-        <Text style={styles.tituloinput}>Produto</Text>
-        <TextInput style={styles.input} value={nome} onChangeText={setNome} />
+        <Text
+          style={styles.tituloinput}>
+          Produto
+        </Text>
 
-        <Text style={styles.tituloinput}>Descrição</Text>
-        <TextInput multiline={true} numberOfLines={0} textAlignVertical={'top'} style={styles.inputdescricao} value={descricao} onChangeText={setDescricao} />
+        <TextInput
+          style={styles.input}
+          value={nome}
+          onChangeText={setNome} />
 
-        <Text style={styles.tituloinput}>Tamanho</Text>
-        <TextInput style={styles.input} value={String(tamanho)} onChangeText={setTamanho} />
+        <Text
+          style={styles.tituloinput}>
+          Descrição
+        </Text>
 
-        <Text style={styles.tituloinput}>Preço</Text>
-        <TextInput editable={false} style={styles.input} value={preco} onChangeText={setPreco} />
+        <TextInput
+          multiline={true}
+          numberOfLines={0}
+          verticalAlign={'top'}
+          style={styles.inputdescricao}
+          value={descricao}
+          onChangeText={setDescricao} />
 
-        <Text style={styles.tituloinput}>Preço Oferta</Text>
-        <TextInput style={styles.input} value={oferta} onChangeText={setOferta} placeholder="0,00" />
+        <Text
+          style={styles.tituloinput}>
+          Tamanho
+        </Text>
 
+        <TextInput
+          style={styles.input}
+          value={String(tamanho)}
+          onChangeText={setTamanho} />
+
+        <Text
+          style={styles.tituloinput}>
+          Preço não editável
+        </Text>
+
+        <TextInput
+          editable={false}
+          style={styles.input}
+          value={preco}
+          onChangeText={setPreco} />
+
+        <Text
+          style={styles.tituloinput}>
+          Preço Oferta
+        </Text>
+
+        <TextInput
+          style={styles.input}
+          value={oferta}
+          onChangeText={setOferta}
+          placeholder="0,00" />
+
+        <TouchableOpacity
+          style={styles.btnatualizar}
+          onPress={Update}>
+
+          <Feather
+            name='save'
+            size={22}
+            color={'#b82539'} />
+
+          <Text
+            style={styles.txtbtnatualizar}>
+            Atualizar
+          </Text>
+
+        </TouchableOpacity>
       </ScrollView>
-      <TouchableOpacity
-        style={styles.btnatualizar}
-        onPress={Update}>
-        <Feather name='save' size={22} color={'#b82539'} />
-        <Text style={styles.txtbtnatualizar}>Atualizar</Text>
-      </TouchableOpacity>
 
     </View>
   );
@@ -150,29 +202,31 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   tituloinput: {
-    marginLeft: 15,
+    marginLeft: 20,
+    backgroundColor: '#fff',
+    marginBottom: -25,
     zIndex: 99,
-    fontSize: 16,
-    color: '#aaa'
+    color: '#777',
+    fontFamily: 'Roboto-LightItalic'
   },
   input: {
     borderWidth: 0,
-    paddingHorizontal: 15,
-    height: 55,
-    borderRadius: 25,
+    paddingHorizontal: 20,
+    height: 70,
+    borderRadius: 20,
     fontSize: 16,
     backgroundColor: "#fff",
     marginBottom: 15
-
   },
   inputdescricao: {
-    minHeight: 55,
+    paddingVertical: 25,
+    minHeight: 70,
     borderWidth: 0,
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
     borderRadius: 25,
     fontSize: 16,
+    marginBottom: 15,
     backgroundColor: "#fff",
-    marginBottom: 15
 
   },
   info: {
@@ -189,8 +243,8 @@ const styles = StyleSheet.create({
     borderRadius: 55 / 2,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 5,
-    elevation: 3
+    elevation: 3,
+    marginVertical: 30
   },
   txtbtnatualizar: {
     color: '#222',

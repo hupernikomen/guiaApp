@@ -47,14 +47,15 @@ export default function Home() {
 
   return (
 
-    <View style={styles.container}>
+    <View
+      style={styles.tela}>
 
       <FlatList
         columnWrapperStyle={{ margin: 2 }}
         data={dadosHeader?.produtos}
         renderItem={({ item }) => <ProdutoFeed item={item} />}
         numColumns={3}
-        ListHeaderComponent={<HeaderHome data={dadosHeader}/>}
+        ListHeaderComponent={<HeaderHome data={dadosHeader} />}
         stickyHeaderIndices={[0]}
         stickyHeaderHiddenOnScroll
         keyExtractor={(item) => item.id}
@@ -62,11 +63,17 @@ export default function Home() {
 
       />
 
-      <View style={styles.containerbtns}>
+      <View
+        style={styles.containerbtns}>
+
         <TouchableOpacity
           onPress={() => navigation.navigate("CadastrarProduto")}
           style={styles.btnadd}>
-          <Feather name='plus' size={25} color={"#fff"} />
+
+          <Feather
+            name='plus'
+            size={25}
+            color={"#fff"} />
         </TouchableOpacity>
       </View>
     </View>
@@ -74,7 +81,7 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  tela: {
     flex: 1,
   },
   container_header: {
