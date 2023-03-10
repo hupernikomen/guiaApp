@@ -6,8 +6,8 @@ import api from '../../services/api';
 import { AuthContext } from '../../contexts/authContext';
 
 import ProdutoFeed from '../../components/Produto/ProdutoFeed';
+import HeaderHome from '../../components/Header/headerHome';
 
-import { launchImageLibrary } from 'react-native-image-picker';
 
 import Feather from 'react-native-vector-icons/Feather'
 
@@ -24,34 +24,6 @@ export default function Home() {
     PegarUsuario()
 
   }, [focus])
-
-
-  function Header() {
-
-    return (
-      <View style={styles.container_header}>
-        <View style={styles.me}>
-
-
-          <Image style={[styles.logo, { width: 60, height: 60 }]} source={{ uri: `http://192.168.0.104:3333/files/logo/${dadosHeader.logo[0].filename}` }} />
-
-          <View style={{ flex: 1 }}>
-
-            <Text style={styles.namestore}>{dadosHeader.nome}</Text>
-            <Text style={styles.bio} numberOfLines={1} ellipsizeMode='tail'>{dadosHeader.bio}</Text>
-            <Text style={styles.contagem}>{dadosHeader.produtos?.length} produtos</Text>
-          </View>
-        </View>
-
-        <TouchableOpacity
-          style={styles.btndados}
-          onPress={() => navigation.navigate("CadastrarDados")}
-        >
-          <Feather name='more-vertical' size={22} color={'#fff'} />
-        </TouchableOpacity>
-      </View>
-    );
-  }
 
 
   async function PegarUsuario() {
@@ -82,7 +54,7 @@ export default function Home() {
         data={dadosHeader?.produtos}
         renderItem={({ item }) => <ProdutoFeed item={item} />}
         numColumns={3}
-        ListHeaderComponent={<Header data={dadosHeader} />}
+        ListHeaderComponent={<HeaderHome data={dadosHeader}/>}
         stickyHeaderIndices={[0]}
         stickyHeaderHiddenOnScroll
         keyExtractor={(item) => item.id}
@@ -116,8 +88,8 @@ const styles = StyleSheet.create({
   logo: {
     width: 60,
     height: 60,
-    borderWidth:1.5,
-    borderColor:'#ffffff50',
+    borderWidth: 1.5,
+    borderColor: '#ffffff50',
     marginRight: 15,
     borderRadius: 60 / 2,
     backgroundColor: '#f2f2f2',
@@ -150,7 +122,7 @@ const styles = StyleSheet.create({
   containerbtns: {
     position: 'absolute',
     bottom: 30,
-    right: 20,
+    right: 14,
   },
 
   btnadd: {

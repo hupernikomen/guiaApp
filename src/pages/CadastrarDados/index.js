@@ -36,10 +36,15 @@ export default function CadastrarDados() {
         title: 'Select Image',
         type: 'library',
         options: {
+            maxWidth: 70,
+            maxHeight: 70,
+            height: 70,
+            width: 70,
             mediaType: 'photo',
-            includeBase64: false,
+
         },
     }
+
 
     async function Logo() {
 
@@ -103,17 +108,16 @@ export default function CadastrarDados() {
 
         <ScrollView showsVerticalScrollIndicator={false} style={styles.tela}>
 
+
             <TouchableOpacity
                 onPress={Logo}
-            >
-                <Text>Trocar Perfil</Text>
+                style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', marginBottom: 20, marginLeft: 15, paddingVertical: 15, borderBottomWidth: .5, borderBottomColor: "#777" }}>
+                <Text style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>Foto Perfil</Text>
             </TouchableOpacity>
-
             <TouchableOpacity
                 onPress={() => navigation.navigate("Mapa")}
                 style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', marginBottom: 20, marginLeft: 15, paddingVertical: 15, borderBottomWidth: .5, borderBottomColor: "#777" }}>
-                <Text style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>Atualizar Minha Localização</Text>
-                <Feather name='map' size={22} color={'#e58003'} />
+                <Text style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>Minha Localização</Text>
             </TouchableOpacity>
 
             <View style={{ marginBottom: 25, flexDirection: "row", justifyContent: 'space-between', alignItems: "center" }}>
@@ -126,21 +130,31 @@ export default function CadastrarDados() {
                 />
             </View>
 
-            <Text style={styles.tituloinput}>Nome da Loja</Text>
-            <TextInput style={styles.input} onChangeText={setNome} value={nome} placeholder=" ... " maxLength={35} />
+            <View style={styles.containerinput}>
+                <Text style={styles.tituloinput}>Nome da Loja</Text>
+                <TextInput style={styles.input} onChangeText={setNome} value={nome} placeholder=" ... " maxLength={35} />
+            </View>
 
-            <Text style={styles.tituloinput}>Endereço</Text>
-            <TextInput style={styles.input} onChangeText={setEndereco} value={endereco} placeholder="..." maxLength={35} />
+            <View style={styles.containerinput}>
+                <Text style={styles.tituloinput}>Endereço</Text>
+                <TextInput style={styles.input} onChangeText={setEndereco} value={endereco} placeholder="..." maxLength={35} />
+            </View>
 
-            <Text style={styles.tituloinput}>Bairro</Text>
-            <TextInput style={styles.input} onChangeText={setBairro} value={bairro} placeholder="..." maxLength={35} />
+            <View style={styles.containerinput}>
+                <Text style={styles.tituloinput}>Bairro</Text>
+                <TextInput style={styles.input} onChangeText={setBairro} value={bairro} placeholder="..." maxLength={35} />
+            </View>
 
-            <Text style={styles.tituloinput}>Whatsapp</Text>
-            <TextInput style={styles.input} onChangeText={setTelefone} value={telefone} placeholder=" ... " />
+            <View style={styles.containerinput}>
+                <Text style={styles.tituloinput}>Whatsapp</Text>
+                <TextInput style={styles.input} onChangeText={setTelefone} value={telefone} placeholder=" ... " />
+            </View>
 
-            <Text style={styles.tituloinput}>Sobre seu negócio</Text>
-            <TextInput multiline numberOfLines={0} verticalAlign={'top'} maxLength={300} style={styles.inputdescricao} onChangeText={setBio} value={bio} placeholder="Bio" />
-            <Text style={{ alignSelf: "flex-end" }}>{bio.length}/300</Text>
+            <View style={styles.containerinput}>
+                <Text style={styles.tituloinput}>Sobre seu negócio</Text>
+                <TextInput multiline numberOfLines={0} verticalAlign={'top'} maxLength={300} style={styles.inputdescricao} onChangeText={setBio} value={bio} placeholder="Bio" />
+                <Text style={{ alignSelf: "flex-end" }}>{bio.length}/300</Text>
+            </View>
 
 
             <TouchableOpacity
@@ -163,24 +177,25 @@ const styles = StyleSheet.create({
         padding: 14,
     },
     tituloinput: {
-        marginLeft: 15,
+        marginLeft: 20,
+        marginBottom: -25,
         zIndex: 99,
-        fontSize: 16,
-        color: '#aaa'
+        color: '#777',
+        fontFamily: 'Roboto-LightItalic'
     },
     input: {
         borderWidth: 0,
-        paddingHorizontal: 15,
-        height: 55,
-        borderRadius: 25,
+        paddingHorizontal: 20,
+        height: 70,
+        borderRadius: 20,
         fontSize: 16,
         backgroundColor: "#fff",
         marginBottom: 15
     },
     inputdescricao: {
-        minHeight: 55,
+        minHeight: 100,
         borderWidth: 0,
-        paddingHorizontal: 15,
+        paddingHorizontal: 20,
         borderRadius: 25,
         fontSize: 16,
         backgroundColor: "#fff",
