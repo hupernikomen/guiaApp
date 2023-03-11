@@ -57,13 +57,14 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderWidth: 2,
-    borderColor: '#ffffff80',
+    borderColor: '#ffffff30',
     marginRight: 15,
     borderRadius: 60 / 2,
   },
   me: {
     flex: 1,
     flexDirection: "row",
+    alignItems:'center',
     paddingRight: 15
   },
   namestore: {
@@ -78,6 +79,9 @@ const styles = StyleSheet.create({
   contagem: {
     color: '#fff',
     fontFamily: "Roboto-Light"
+  },
+  btndados:{
+    paddingTop:3
   }
 
 });

@@ -17,7 +17,7 @@ function AppRoutes() {
                 headerShown: false
             }} />
             <Stack.Screen name='CadastrarProduto' component={CadastrarProduto} options={{
-                title: "",
+                title: "Postar Produto",
                 headerShadowVisible: false,
                 headerStyle: {
                     backgroundColor:'#b82539',

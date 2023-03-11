@@ -106,144 +106,134 @@ export default function CadastrarDados() {
     }
 
     return (
+        <>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={styles.tela}>
 
-        <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={styles.tela}>
 
+                <TouchableOpacity
+                    onPress={Logo}
+                    style={styles.links}>
 
-            <TouchableOpacity
-                onPress={Logo}
-                style={styles.links}>
+                    <Text
+                        style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>
+                        Logo
+                    </Text>
 
-                <Text
-                    style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>
-                    Logo
-                </Text>
+                    <IcoMc name='account-box' size={30} color={'#b82539'} />
 
-                <IcoMc name='account-box' size={30} color={'#b82539'} />
+                </TouchableOpacity>
 
-            </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Mapa")}
+                    style={styles.links}>
 
-            <TouchableOpacity
-                onPress={() => navigation.navigate("Mapa")}
-                style={styles.links}>
+                    <Text
+                        style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>
+                        Localização
+                    </Text>
+                    <IcoMc
+                        name='map-marker'
+                        size={30}
+                        color={'#b82539'} />
 
-                <Text
-                    style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>
-                    Localização
-                </Text>
-                <IcoMc
-                    name='map-marker'
-                    size={30}
-                    color={'#b82539'} />
+                </TouchableOpacity>
 
-            </TouchableOpacity>
+                <View style={[styles.links, { marginBottom: 30 }]}>
 
-            <View style={[styles.links, { marginBottom: 30 }]}>
+                    <Text
+                        style={{ color: '#222', fontFamily: "Roboto-Regular", fontSize: 16 }}>
+                        Entregas
+                    </Text>
 
-                <Text
-                    style={{ color: '#222', fontFamily: "Roboto-Regular", fontSize: 16 }}>
-                    Entregas
-                </Text>
+                    <Switch
+                        trackColor={{ false: '#767577', true: '#ddd' }}
+                        thumbColor={entrega ? '#b82539' : '#f4f3f4'}
+                        onValueChange={toggleSwitch}
+                        value={entrega}
+                    />
+                </View>
 
-                <Switch
-                    trackColor={{ false: '#767577', true: '#ddd' }}
-                    thumbColor={entrega ? '#b82539' : '#f4f3f4'}
-                    onValueChange={toggleSwitch}
-                    value={entrega}
-                />
-            </View>
+                <View
+                    style={styles.containerinput}>
+                    <Text>
+                        Nome da Loja
+                    </Text>
 
-            <View
-                style={styles.containerinput}>
-
-                <Text
-                    style={styles.tituloinput}>
-                    Nome da Loja
-                </Text>
-
-                <TextInput
+                    <TextInput
                     style={styles.input}
                     onChangeText={setNome}
                     value={nome} placeholder=" ... "
                     maxLength={35} />
+                </View>
 
-            </View>
+                <View
+                    style={styles.containerinput}>
+                    <Text>
+                        Endereço
+                    </Text>
 
-            <View
-                style={styles.containerinput}>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setEndereco}
+                        value={endereco}
+                        placeholder="..."
+                        maxLength={35} />
+                </View>
 
-                <Text
-                    style={styles.tituloinput}>
-                    Endereço
-                </Text>
+                <View
+                    style={styles.containerinput}>
+                    <Text>
+                        Bairro
+                    </Text>
 
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setEndereco}
-                    value={endereco}
-                    placeholder="..."
-                    maxLength={35} />
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setBairro}
+                        value={bairro}
+                        placeholder="..."
+                        maxLength={35} />
+                </View>
 
-            </View>
+                <View
+                    style={styles.containerinput}>
+                    <Text>
+                        Whatsapp
+                    </Text>
 
-            <View
-                style={styles.containerinput}>
-                <Text
-                    style={styles.tituloinput}>
-                    Bairro
-                </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setTelefone}
+                        value={telefone}
+                        placeholder=" ... " />
+                </View>
 
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setBairro}
-                    value={bairro}
-                    placeholder="..."
-                    maxLength={35} />
+                <View
+                    style={styles.containerinput}>
+                    <Text>
+                        Sobre seu negócio
+                    </Text>
 
-            </View>
+                    <TextInput
+                        style={styles.input}
+                        multiline numberOfLines={0}
+                        verticalAlign={'top'}
+                        maxLength={300}
+                        onChangeText={setBio}
+                        value={bio}
+                        placeholder="Bio" />
+                    <Text
+                        style={{ alignSelf: "flex-end" }}>
+                        {bio.length}/300
+                    </Text>
 
-            <View
-                style={styles.containerinput}>
-
-                <Text style={styles.tituloinput}>
-                    Whatsapp
-                </Text>
-
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setTelefone}
-                    value={telefone}
-                    placeholder=" ... " />
-
-            </View>
-
-            <View
-                style={styles.containerinput}>
-
-                <Text style={styles.tituloinput}>
-                    Sobre seu negócio
-                </Text>
-
-                <TextInput
-                    multiline numberOfLines={0}
-                    verticalAlign={'top'}
-                    maxLength={300}
-                    style={styles.inputdescricao}
-                    onChangeText={setBio}
-                    value={bio}
-                    placeholder="Bio" />
-
-                <Text
-                    style={{ alignSelf: "flex-end" }}>
-                    {bio.length}/300
-                </Text>
-
-            </View>
+                </View>
 
 
+            </ScrollView>
             <TouchableOpacity
+
                 style={styles.btnatualizar}
                 onPress={() => {
                     UpdateUsuario(entrega, nome, endereco, bairro, telefone, bio)
@@ -252,15 +242,12 @@ export default function CadastrarDados() {
                 }>
                 <IcoFeather
                     name='save'
-                    size={22}
-                    color={'#b82539'} />
+                    size={28}
+                    color={'#fff'} />
 
-                <Text style={styles.txtbtnatualizar}>
-                    Atualizar Informações
-                </Text>
 
             </TouchableOpacity>
-        </ScrollView>
+        </>
     );
 }
 
@@ -279,49 +266,31 @@ const styles = StyleSheet.create({
         borderBottomWidth: .5,
         borderBottomColor: "#777"
     },
-    tituloinput: {
+    containerinput: {
         backgroundColor: '#fff',
-        marginLeft: 20,
-        marginBottom: -25,
-        zIndex: 99,
-        color: '#777',
-        fontFamily: 'Roboto-LightItalic'
+        width: "100%",
+        minHeight: 80,
+        marginBottom: 10,
+        borderRadius: 20,
+        paddingHorizontal: 20,
+        justifyContent: 'center'
     },
     input: {
-        borderWidth: 0,
-        paddingHorizontal: 20,
-        height: 70,
-        borderRadius: 20,
-        fontSize: 16,
-        backgroundColor: "#fff",
-        marginBottom: 15
-    },
-    inputdescricao: {
-        paddingVertical: 25,
-        minHeight: 100,
-        borderWidth: 0,
-        paddingHorizontal: 20,
-        borderRadius: 25,
-        fontSize: 16,
-        backgroundColor: "#fff",
-
+        fontSize:16,
+        fontFamily:'Roboto-Regular'
     },
     btnatualizar: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        height: 55,
-        borderRadius: 55 / 2,
+        width: 60,
+        height: 60,
+        elevation: 5,
+        borderRadius: 60 / 2,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 3,
-        marginVertical: 30
-    },
-    txtbtnatualizar: {
-        color: '#222',
-        fontSize: 16,
-        marginLeft: 15,
-        fontFamily: 'Roboto-Medium'
+        backgroundColor: '#b82539',
+        bottom: 30,
+        right: 20,
+        position: "absolute",
+        
     }
 
 })

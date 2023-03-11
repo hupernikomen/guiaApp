@@ -123,8 +123,7 @@ export default function CadastrarProduto() {
 
 
     return (
-        <View
-            style={styles.tela}>
+        <>
 
             <Modal
                 animationType="slide"
@@ -176,94 +175,110 @@ export default function CadastrarProduto() {
             </Modal>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                style={{ flex: 1 }}>
+                style={styles.tela}>
+                <View
+                    style={styles.containerfotos}>
 
-                <ScrollView
-                    showsHorizontalScrollIndicator={false}
-                    horizontal
-                    contentContainerStyle={{ alignItems: "center" }}>
+                    <ScrollView
+                        showsHorizontalScrollIndicator={false}
+                        horizontal
+                        style={styles.scrollfotos}>
+
+                        {imagens.map((item, index) => {
+                            return <Image
+                                key={index}
+                                style={styles.fotoReferencia}
+                                source={{ uri: item.uri }} />
+                        })}
+
+                    </ScrollView>
 
                     <TouchableOpacity
                         disabled={imagens.length == 5 && true}
-                        style={{ margin: 14 }}
+                        style={{ marginHorizontal: 20 }}
                         onPress={() => setModalVisible(!modalVisible)}
                     >
-                        <Feather
-                            name="image"
-                            size={50}
-                            color={"#e58003"} />
+
+                        <Text
+                            style={[styles.linkfotos, { color: imagens.length === 5 ? "#aaa" : "#b82539" }]}>
+                            Selecionar Fotos
+                        </Text>
+
+                        {imagens.length == 0 ?
+                            <Text>
+                                Escolha a imagem capa do seu produto...
+                            </Text>
+                            :
+                            <Text>
+                                Você carregou {imagens.length}/5 imagens
+                            </Text>
+
+                        }
                     </TouchableOpacity>
-                    {imagens.map((item, index) => {
-                        return <Image
-                            key={index}
-                            style={styles.fotoReferencia}
-                            source={{ uri: item.uri }} />
-                    })}
+                </View>
 
-                </ScrollView>
 
-                {imagens.length == 0 ?
-                    <Text
-                        style={styles.contagemimagens}>
-                        Escolha a imagem capa do seu produto...
+
+                <View style={styles.containerinput}>
+                    <Text>
+                        Produto
                     </Text>
-                    :
-                    <Text
-                        style={styles.contagemimagens}>
-                        Você carregou {imagens.length}/5 imagens
-                    </Text>
-
-                }
-
-                <Text
-                    style={styles.tituloinput}>
-                    Produto
-                </Text>
-                <TextInput
+                    <TextInput
                     style={styles.input}
+                    multiline
+                    maxLength={35}
                     onChangeText={setNome}
                     placeholder="..."
                     value={nome} />
+                </View>
 
-                <Text
-                    style={styles.tituloinput}>
-                    Preço
-                </Text>
-                <TextInput
+                <View style={styles.containerinput}>
+                    <Text>
+                        Preço
+                    </Text>
+                    <TextInput
                     style={styles.input}
                     keyboardType="numeric"
                     onChangeText={setPreco}
                     placeholder="..."
                     value={preco} />
+                </View>
 
-                <Text
-                    style={styles.tituloinput}>
-                    Detalhes do produto
-                </Text>
-                <TextInput style={styles.input} onChangeText={setDescricao} placeholder="..." value={descricao} />
+                <View style={styles.containerinput}>
+                    <Text>
+                        Detalhes do produto
+                    </Text>
+                    <TextInput
+                    style={styles.input}
+                    onChangeText={setDescricao}
+                    multiline
+                    placeholder="..."
+                    value={descricao} />
 
-                <Text
-                    style={styles.tituloinput}>
-                    Tamanhos
-                </Text>
-                <TextInput
+                </View>
+
+                <View style={styles.containerinput}>
+                    <Text>
+                        Tamanhos
+                    </Text>
+                    <TextInput
                     style={styles.input}
                     onChangeText={setTamanho}
                     placeholder="..."
                     value={tamanho} />
+                </View>
                 <Text
                     style={styles.info}>
                     Separado por virgula. Ex.: P , M , GG
                 </Text>
 
 
-                <Text
-                    style={styles.tituloinput}>
+                <View style={styles.containerinput}>
+                <Text>
                     Categoria do produto
                 </Text>
                 <Picker
-                    style={styles.input}
-                    mode="dropdown"
+                    mode="dialog"
                     selectedValue={categoria}
                     onValueChange={(itemValue, itemIndex) => {
                         setCategoria(itemValue);
@@ -283,28 +298,24 @@ export default function CadastrarProduto() {
                                 key={item.id}
                                 value={item.id}
                                 label={item.nome}
-                                style={{ fontSize: 15, padding: 0 }}
                             />
                         );
                     })}
                 </Picker>
+                </View>
 
-                <TouchableOpacity
-                    style={styles.btncadastrar}
-                    onPress={CadastrarItem}>
-                    <Feather
-                        name='save'
-                        size={22}
-                        color={'#b82539'} />
-                    <Text
-                        style={styles.txtbtncadastrar}>
-                        Salvar
-                    </Text>
-                </TouchableOpacity>
             </ScrollView>
+            <TouchableOpacity
+                style={styles.btncadastrar}
+                onPress={CadastrarItem}>
+                <Feather
+                    name='save'
+                    size={28}
+                    color={'#fff'} />
+            </TouchableOpacity>
 
 
-        </View>
+        </>
     )
 }
 
@@ -317,43 +328,36 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#333"
     },
-    contagemimagens: {
-        marginBottom: 15,
+    containerfotos: {
+        marginBottom: 25
+    },
+    linkfotos: {
         fontSize: 16,
-        marginLeft: 15,
-        fontFamily: "Roboto-Light"
+        fontFamily: "Roboto-Regular"
+
+    },
+    scrollfotos: {
+        marginBottom: 14,
+        marginLeft: 18,
     },
     fotoReferencia: {
-        width: 45,
-        height: 45,
+        width: 60,
+        height: 60,
         margin: 2,
         borderRadius: 6
     },
-    tituloinput: {
+    containerinput: {
         backgroundColor: '#fff',
-        marginLeft: 20,
-        marginBottom: -25,
-        zIndex: 99,
-        color: '#777',
-        fontFamily: 'Roboto-LightItalic'
+        width: "100%",
+        minHeight: 80,
+        marginBottom: 10,
+        borderRadius: 20,
+        paddingHorizontal: 20,
+        justifyContent: 'center'
     },
     input: {
-        borderWidth: 0,
-        paddingHorizontal: 20,
-        height: 70,
-        borderRadius: 20,
-        fontSize: 16,
-        backgroundColor: "#fff",
-        marginBottom: 15
-    },
-    inputdescricao: {
-        paddingVertical: 25,
-        minHeight: 100,
-        borderWidth: 0,
-        paddingHorizontal: 20,
-        borderRadius: 25,
-        fontSize: 16,
-        backgroundColor: "#fff",
+        fontSize:16,
+        fontFamily:'Roboto-Regular'
     },
     info: {
         alignSelf: 'flex-end',
@@ -363,22 +367,18 @@ const styles = StyleSheet.create({
     },
 
     btncadastrar: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        height: 55,
-        borderRadius: 55 / 2,
+        width: 60,
+        height: 60,
+        elevation: 5,
+        borderRadius: 60 / 2,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 3,
-        marginVertical: 30
+        backgroundColor: '#b82539',
+        bottom: 30,
+        right: 20,
+        position: "absolute"
     },
-    txtbtncadastrar: {
-        color: '#222',
-        fontSize: 16,
-        marginLeft: 15,
-        fontFamily: 'Roboto-Medium'
-    },
+
     areaModal: {
         flex: 1,
         justifyContent: 'center',

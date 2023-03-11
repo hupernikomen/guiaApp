@@ -100,12 +100,11 @@ export default function EditProduct() {
   }
 
   return (
-    <View
-      style={styles.tela}>
+    <>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ flex: 1 }}>
+      style={styles.tela}>
 
 
         <Text
@@ -163,24 +162,20 @@ export default function EditProduct() {
           onChangeText={setOferta}
           placeholder="0,00" />
 
+      </ScrollView>
         <TouchableOpacity
           style={styles.btnatualizar}
           onPress={Update}>
 
           <Feather
             name='save'
-            size={22}
-            color={'#b82539'} />
+            size={28}
+            color={'#fff'} />
 
-          <Text
-            style={styles.txtbtnatualizar}>
-            Atualizar
-          </Text>
 
         </TouchableOpacity>
-      </ScrollView>
 
-    </View>
+    </>
   );
 }
 
@@ -236,21 +231,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-LightItalic'
   },
   btnatualizar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    height: 55,
-    borderRadius: 55 / 2,
+    width: 60,
+    height: 60,
+    elevation: 5,
+    borderRadius: 60 / 2,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 3,
-    marginVertical: 30
-  },
-  txtbtnatualizar: {
-    color: '#222',
-    fontSize: 16,
-    marginLeft: 15,
-    fontFamily: 'Roboto-Medium'
+    backgroundColor: '#b82539',
+    bottom: 30,
+    right: 20,
+    position: "absolute"
   }
 
 

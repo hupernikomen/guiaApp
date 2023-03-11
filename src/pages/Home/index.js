@@ -46,37 +46,34 @@ export default function Home() {
 
 
   return (
-
-    <View
-      style={styles.tela}>
-
-      <FlatList
-        columnWrapperStyle={{ margin: 2 }}
-        data={dadosHeader?.produtos}
-        renderItem={({ item }) => <ProdutoFeed item={item} />}
-        numColumns={3}
-        ListHeaderComponent={<HeaderHome data={dadosHeader} />}
-        stickyHeaderIndices={[0]}
-        stickyHeaderHiddenOnScroll
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-
-      />
-
+    <>
       <View
-        style={styles.containerbtns}>
+        style={styles.tela}>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("CadastrarProduto")}
-          style={styles.btnadd}>
+        <FlatList
+          columnWrapperStyle={{ margin: 2 }}
+          data={dadosHeader?.produtos}
+          renderItem={({ item }) => <ProdutoFeed item={item} />}
+          numColumns={3}
+          ListHeaderComponent={<HeaderHome data={dadosHeader} />}
+          stickyHeaderIndices={[0]}
+          stickyHeaderHiddenOnScroll
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
 
-          <Feather
-            name='plus'
-            size={25}
-            color={"#fff"} />
-        </TouchableOpacity>
+        />
+
       </View>
-    </View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("CadastrarProduto")}
+        style={styles.btnadd}>
+
+        <Feather
+          name='plus'
+          size={28}
+          color={"#fff"} />
+      </TouchableOpacity>
+    </>
   );
 }
 
@@ -91,22 +88,6 @@ const styles = StyleSheet.create({
     padding: 14,
     elevation: 5,
     height: 100
-  },
-  logo: {
-    width: 60,
-    height: 60,
-    borderWidth: 1.5,
-    borderColor: '#ffffff50',
-    marginRight: 15,
-    borderRadius: 60 / 2,
-    backgroundColor: '#f2f2f2',
-    overflow: 'hidden',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  imglogo: {
-    width: 60,
-    height: 60,
   },
   me: {
     flex: 1,
@@ -133,13 +114,16 @@ const styles = StyleSheet.create({
   },
 
   btnadd: {
-    width: 55,
-    height: 55,
-    elevation: 3,
-    borderRadius: 30,
+    width: 60,
+    height: 60,
+    elevation: 5,
+    borderRadius: 60 / 2,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#b82539'
+    backgroundColor: '#b82539',
+    bottom: 30,
+    right: 20,
+    position: "absolute"
   },
 
 });
