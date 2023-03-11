@@ -52,14 +52,12 @@ export default function CadastrarDados() {
         await launchImageLibrary(options, (response) => {
             if (response.error || response.didCancel) {
                 return;
-            }
-        })
-            .then((response) => {
+            }else{
 
                 setLogo(response.assets[0])
                 CadastrarLogo(response.assets[0])
-
-            })
+            }
+        })
     }
 
 
