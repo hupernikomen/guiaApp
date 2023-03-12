@@ -4,7 +4,6 @@ import { AuthContext } from "../../contexts/authContext"
 
 import api from '../../services/api';
 
-import IcoMc from 'react-native-vector-icons/MaterialCommunityIcons'
 import IcoFeather from 'react-native-vector-icons/Feather'
 import { launchImageLibrary } from 'react-native-image-picker';
 
@@ -15,7 +14,6 @@ export default function CadastrarDados() {
     const focus = useIsFocused()
     const { UpdateUsuario, usuario } = useContext(AuthContext)
 
-    const [logo, setLogo] = useState([])
 
     const [nome, setNome] = useState("")
     const [endereco, setEndereco] = useState("")
@@ -30,6 +28,7 @@ export default function CadastrarDados() {
     useEffect(() => {
 
         PegarUsuario()
+
 
     }, [focus])
 
@@ -52,9 +51,7 @@ export default function CadastrarDados() {
         await launchImageLibrary(options, (response) => {
             if (response.error || response.didCancel) {
                 return;
-            }else{
-
-                setLogo(response.assets[0])
+            } else {
                 CadastrarLogo(response.assets[0])
             }
         })
@@ -106,51 +103,47 @@ export default function CadastrarDados() {
     return (
         <>
             <ScrollView
+                
                 showsVerticalScrollIndicator={false}
                 style={styles.tela}>
 
 
                 <TouchableOpacity
                     onPress={Logo}
-                    style={styles.links}>
+                    style={[styles.links, { marginBottom: 20 }]}>
 
                     <Text
                         style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>
                         Logo
                     </Text>
 
-                    <IcoMc name='account-box' size={30} color={'#b82539'} />
+                    <IcoFeather
+                        name='edit'
+                        size={24} />
 
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => navigation.navigate("Mapa")}
-                    style={styles.links}>
+  
 
+                <View style={{ marginBottom: 30 }}>
+                    <View style={[styles.links]}>
+
+                        <Text
+                            style={{ color: '#222', fontFamily: "Roboto-Regular", fontSize: 16 }}>
+                            Entregas
+                        </Text>
+
+                        <Switch
+                            trackColor={{ false: '#767577', true: '#ddd' }}
+                            thumbColor={entrega ? '#b82539' : '#f4f3f4'}
+                            onValueChange={toggleSwitch}
+                            value={entrega}
+                        />
+                    </View>
                     <Text
-                        style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>
-                        Localização
+                        style={styles.infoinputs}>
+                        Marque se sua loja faz entregas de pedidos
                     </Text>
-                    <IcoMc
-                        name='map-marker'
-                        size={30}
-                        color={'#b82539'} />
-
-                </TouchableOpacity>
-
-                <View style={[styles.links, { marginBottom: 30 }]}>
-
-                    <Text
-                        style={{ color: '#222', fontFamily: "Roboto-Regular", fontSize: 16 }}>
-                        Entregas
-                    </Text>
-
-                    <Switch
-                        trackColor={{ false: '#767577', true: '#ddd' }}
-                        thumbColor={entrega ? '#b82539' : '#f4f3f4'}
-                        onValueChange={toggleSwitch}
-                        value={entrega}
-                    />
                 </View>
 
                 <View
@@ -160,10 +153,10 @@ export default function CadastrarDados() {
                     </Text>
 
                     <TextInput
-                    style={styles.input}
-                    onChangeText={setNome}
-                    value={nome} placeholder=" ... "
-                    maxLength={35} />
+                        style={styles.input}
+                        onChangeText={setNome}
+                        value={nome} placeholder=" ... "
+                        maxLength={35} />
                 </View>
 
                 <View
@@ -208,7 +201,7 @@ export default function CadastrarDados() {
                 </View>
 
                 <View
-                    style={styles.containerinput}>
+                    style={[styles.containerinput,{marginBottom:80}]}>
                     <Text>
                         Sobre seu negócio
                     </Text>
@@ -258,25 +251,29 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'baseline',
-        marginBottom: 20,
         marginLeft: 20,
         paddingVertical: 5,
-        borderBottomWidth: .5,
-        borderBottomColor: "#777"
     },
     containerinput: {
         backgroundColor: '#fff',
         width: "100%",
         minHeight: 80,
-        marginBottom: 10,
+        marginBottom: 6,
         borderRadius: 20,
         paddingHorizontal: 20,
         justifyContent: 'center'
     },
     input: {
-        fontSize:16,
-        fontFamily:'Roboto-Regular'
+        fontSize: 16,
+        fontFamily: 'Roboto-Regular',
+        padding: 0
     },
+    infoinputs:{
+        color:'#aaa',
+        fontFamily:'Roboto-Italic',
+        marginLeft: 20, 
+        marginBottom: 20 
+      },
     btnatualizar: {
         width: 60,
         height: 60,
@@ -286,9 +283,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#b82539',
         bottom: 30,
-        right: 20,
+        right: 15,
         position: "absolute",
-        
+
     }
 
 })

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, ScrollView, Image, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Alert, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { useRoute, useIsFocused, useNavigation } from '@react-navigation/native';
 import { AuthContext } from "../../contexts/authContext"
@@ -44,7 +44,7 @@ export default function EditProduct() {
       headerRight: () => {
         return (
           <TouchableOpacity
-            onPress={Delete}>
+            onPress={ConfirmaExclusao}>
             <Feather name='trash' size={24} color={'#fff'} />
           </TouchableOpacity>
         )
@@ -81,6 +81,21 @@ export default function EditProduct() {
       })
   }
 
+  async function ConfirmaExclusao(e) {
+
+    Alert.alert("Excluir Produto", `Deseja excluir o item: \n${route.params?.nome} \nR$ ${route.params?.preco}`, [
+      {
+        text: "Sim",
+        onPress: () => {
+          Delete()
+
+        },
+      },
+      { text: "Não" },
+    ])
+  }
+
+
 
   async function Delete() {
     const headers = {
@@ -104,76 +119,86 @@ export default function EditProduct() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-      style={styles.tela}>
+        style={styles.tela}>
 
+        <View style={styles.containerinput}>
 
-        <Text
-          style={styles.tituloinput}>
-          Produto
-        </Text>
+          <Text>
+            Produto
+          </Text>
 
-        <TextInput
-          style={styles.input}
-          value={nome}
-          onChangeText={setNome} />
+          <TextInput
+            style={styles.input}
+            value={nome}
+            onChangeText={setNome} />
+        </View>
 
-        <Text
-          style={styles.tituloinput}>
-          Descrição
-        </Text>
+        <View style={styles.containerinput}>
 
-        <TextInput
-          multiline={true}
-          numberOfLines={0}
-          verticalAlign={'top'}
-          style={styles.inputdescricao}
-          value={descricao}
-          onChangeText={setDescricao} />
+          <Text>
+            Descrição
+          </Text>
 
-        <Text
-          style={styles.tituloinput}>
-          Tamanho
-        </Text>
+          <TextInput
+            multiline={true}
+            numberOfLines={0}
+            verticalAlign={'top'}
+            style={styles.input}
+            value={descricao}
+            onChangeText={setDescricao} />
+        </View>
 
-        <TextInput
-          style={styles.input}
-          value={String(tamanho)}
-          onChangeText={setTamanho} />
+        <View style={styles.containerinput}>
+          <Text>
+            Tamanho
+          </Text>
 
-        <Text
-          style={styles.tituloinput}>
-          Preço não editável
-        </Text>
+          <TextInput
+            style={styles.input}
+            value={String(tamanho)}
+            onChangeText={setTamanho} />
+        </View>
+        <Text style={styles.infoinputs}>Separe os tamanhos com virgula. Ex: P , M , GG</Text>
 
-        <TextInput
-          editable={false}
-          style={styles.input}
-          value={preco}
-          onChangeText={setPreco} />
+        <View style={styles.containerinput}>
 
-        <Text
-          style={styles.tituloinput}>
-          Preço Oferta
-        </Text>
+          <Text>
+            Preço
+          </Text>
 
-        <TextInput
-          style={styles.input}
-          value={oferta}
-          onChangeText={setOferta}
-          placeholder="0,00" />
+          <TextInput
+            editable={false}
+            style={styles.input}
+            value={preco}
+            onChangeText={setPreco} />
+        </View>
+        <Text style={styles.infoinputs}>Se deseja mudar o preço, sugerimos utilizar o campo 'Preço Oferta' a seguir</Text>
+
+        <View style={styles.containerinput}>
+
+          <Text>
+            Preço Oferta
+          </Text>
+
+          <TextInput
+            style={styles.input}
+            value={oferta}
+            onChangeText={setOferta}
+            placeholder="0,00" />
+        </View>
 
       </ScrollView>
-        <TouchableOpacity
-          style={styles.btnatualizar}
-          onPress={Update}>
+      <TouchableOpacity
+        style={styles.btnatualizar}
+        onPress={Update}>
 
-          <Feather
-            name='save'
-            size={28}
-            color={'#fff'} />
+        <Feather
+          name='save'
+          size={28}
+          color={'#fff'} />
 
 
-        </TouchableOpacity>
+      </TouchableOpacity>
 
     </>
   );
@@ -196,39 +221,25 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20
   },
-  tituloinput: {
-    marginLeft: 20,
+  containerinput: {
     backgroundColor: '#fff',
-    marginBottom: -25,
-    zIndex: 99,
-    color: '#777',
-    fontFamily: 'Roboto-LightItalic'
+    width: "100%",
+    minHeight: 80,
+    marginBottom: 6,
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    justifyContent: 'center'
   },
   input: {
-    borderWidth: 0,
-    paddingHorizontal: 20,
-    height: 70,
-    borderRadius: 20,
     fontSize: 16,
-    backgroundColor: "#fff",
-    marginBottom: 15
+    fontFamily: 'Roboto-Regular',
+    padding: 0
   },
-  inputdescricao: {
-    paddingVertical: 25,
-    minHeight: 70,
-    borderWidth: 0,
-    paddingHorizontal: 20,
-    borderRadius: 25,
-    fontSize: 16,
-    marginBottom: 15,
-    backgroundColor: "#fff",
-
-  },
-  info: {
-    fontSize: 15,
-    marginTop: 10,
-    color: '#aaa',
-    fontFamily: 'Roboto-LightItalic'
+  infoinputs:{
+    color:'#aaa',
+    fontFamily:'Roboto-Italic',
+    marginLeft: 20, 
+    marginBottom: 20 
   },
   btnatualizar: {
     width: 60,
@@ -239,7 +250,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#b82539',
     bottom: 30,
-    right: 20,
+    right: 15,
     position: "absolute"
   }
 

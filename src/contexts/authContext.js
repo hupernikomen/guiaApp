@@ -1,8 +1,7 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect,useRef } from "react";
 import api from '../services/api'
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 export const AuthContext = createContext({})
 
@@ -119,8 +118,6 @@ export function AuthProvider({ children }) {
         })
       })
   }
-
-
 
 
   return (

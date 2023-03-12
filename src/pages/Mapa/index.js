@@ -29,8 +29,8 @@ export default function Mapa() {
         fontFamily: "Roboto-Regular",
         fontSize: 18
       },
-      title: marker && String(parseFloat(marker.latitude).toFixed(7) + " "
-        + parseFloat(marker.longitude).toFixed(7))
+      title: marker ? String(parseFloat(marker.latitude).toFixed(7) + " "
+        + parseFloat(marker.longitude).toFixed(7)) : "Informe sua localização..."
     })
   }
 

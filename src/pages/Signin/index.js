@@ -15,8 +15,8 @@ export default function Login() {
 
   const { signIn } = useContext(AuthContext)
 
-  const [email, setEmail] = useState("hupcontato@gmail.com")
-  const [senha, setSenha] = useState("hpG422354")
+  const [email, setEmail] = useState("")
+  const [senha, setSenha] = useState("")
 
 
 
@@ -32,25 +32,27 @@ export default function Login() {
   }
 
   return (
-    <View style={styles.cotainer}>
+    <View style={styles.tela}>
 
       <StatusBar hidden />
       <View style={styles.form_login}>
 
         <TextInput
-          keyboardType='email-address'
-          inlineImagePadding={40}
-          inlineImageLeft='email'
-          onChangeText={setEmail}
-          value={email}
-          style={styles.input}
-          placeholder='seuemail@email.com'
-
+        placeholderTextColor={"#aaa"}
+        keyboardType='email-address'
+        inlineImagePadding={40}
+        inlineImageLeft='email'
+        onChangeText={setEmail}
+        value={email}
+        style={styles.input}
+        placeholder='seuemail@email.com'
+        
         />
 
         <TextInput
           inlineImagePadding={40}
-          inlineImageLeft='lock'
+          inlineImageLeft='key'
+          placeholderTextColor={"#aaa"}
           onChangeText={setSenha}
           value={senha}
           style={styles.input}
@@ -61,9 +63,7 @@ export default function Login() {
 
         <TouchableOpacity
           activeOpacity={0.7}
-          style={[styles.btn_sign, {
-            elevation: email && senha ? 20 : 0,
-          }]}
+          style={styles.btn_sign}
           onPress={logar}
           disabled={!email && !senha ? true : false}
         >
@@ -91,7 +91,7 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
-  cotainer: {
+  tela: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -103,14 +103,14 @@ const styles = StyleSheet.create({
   input: {
     height: 55,
     textAlign: "left",
-    marginBottom: 8,
+    marginBottom: 6,
     paddingHorizontal: 25,
     borderRadius: 55 / 2,
     fontSize: 16,
-    
+    backgroundColor: '#fff',
   },
   btn_sign: {
-    backgroundColor:"#fff",
+    backgroundColor:"#b82539",
     height: 55,
     borderRadius: 55 / 2,
     justifyContent: "center",
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   txtbtn_sign: {
     fontWeight: '600',
     fontSize: 16,
+    color:"#fff"
   },
   btn_contact: {
     height: 50,
@@ -130,7 +131,6 @@ const styles = StyleSheet.create({
     bottom: 20
   },
   txtbtn_contact: {
-    color: '#333',
     fontSize: 16,
   },
 });

@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar, Image, Modal } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+
 import api from '../../services/api';
+
+import Menu from '../../components/Menu';
 
 import { AuthContext } from '../../contexts/authContext';
 
@@ -25,6 +28,8 @@ export default function Home() {
 
   }, [focus])
 
+  
+
 
   async function PegarUsuario() {
     const headers = {
@@ -36,14 +41,14 @@ export default function Home() {
 
         setDadosHeader(response.data);
 
-        const { nome, endereco, bairro, telefone, bio } = response.data
+        const { nome, endereco, bairro, telefone, bio, latlng } = response.data
         if (!nome || !endereco || !bairro || !telefone || !bio) {
           navigation.navigate("CadastrarDados")
+        } else if (!latlng) {
+          navigation.navigate("Mapa")
         }
-
       })
   }
-
 
   return (
     <>
@@ -51,7 +56,7 @@ export default function Home() {
         style={styles.tela}>
 
         <FlatList
-          columnWrapperStyle={{ margin: 2 }}
+          columnWrapperStyle={{ marginHorizontal: 2, marginVertical: 10 }}
           data={dadosHeader?.produtos}
           renderItem={({ item }) => <ProdutoFeed item={item} />}
           numColumns={3}
@@ -62,11 +67,12 @@ export default function Home() {
           showsVerticalScrollIndicator={false}
 
         />
-
       </View>
+
       <TouchableOpacity
         onPress={() => navigation.navigate("CadastrarProduto")}
         style={styles.btnadd}>
+
 
         <Feather
           name='plus'
@@ -122,7 +128,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#b82539',
     bottom: 30,
-    right: 20,
+    right: 15,
     position: "absolute"
   },
 
